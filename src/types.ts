@@ -8,3 +8,9 @@ export interface Response<T> {
   ok: boolean;
   data: T;
 }
+
+export interface User extends LoginFormValue {
+  balance: number;
+  avatar: string;
+  introduction: string;
+}
