@@ -21,18 +21,12 @@ const LoginPage: React.FC = () => {
       setLoading(true);
       login(values)
         .then(async (resp) => {
-          if (resp.status !== 200) {
-            const error = Error(`HTTP error! status: ${resp.status}`);
-            messageApi.error("登录失败", 3);
-            console.log(error);
-            return;
-          }
-          const msg = resp.data.message;
-          if (!resp.data.ok) {
+          const msg = resp.message;
+          if (!resp.ok) {
             messageApi.error(msg, 3);
             return;
           }
-          messageApi.success(msg, 2);
+          await messageApi.success(msg, 0.5);
           navigate("/");
         })
         .catch(async (error) => {
