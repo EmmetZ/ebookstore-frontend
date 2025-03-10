@@ -9,8 +9,10 @@ export interface Response<T> {
   data: T;
 }
 
-export interface User extends LoginFormValue {
+export interface User {
+  username: string;
+  nickname: string;
   balance: number;
-  avatar: string;
-  introduction: string;
+  avatar: string | null;
+  introduction: string | null;
 }
