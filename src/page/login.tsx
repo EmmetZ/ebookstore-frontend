@@ -4,7 +4,7 @@ import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
 import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
 import { useNavigate } from "react-router";
-import login from "../service/login";
+import { login } from "../service/user";
 import { LoginFormValue } from "../types";
 import { LoginLayout } from "./layout";
 
