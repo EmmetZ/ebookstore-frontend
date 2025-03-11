@@ -1,8 +1,8 @@
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input, Space, theme } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
-import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import { login } from "../service/user";
 import { LoginFormValue } from "../types";
@@ -71,14 +71,14 @@ const LoginPage: React.FC = () => {
               name="username"
               rules={[{ required: true, message: "请输入用户名！" }]}
             >
-              <Input prefix={<AiOutlineUser />} placeholder="请输入用户名" />
+              <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[{ required: true, message: "请输入密码" }]}
             >
               <Input.Password
-                prefix={<AiOutlineLock />}
+                prefix={<LockOutlined />}
                 type="password"
                 placeholder="请输入密码"
               />
