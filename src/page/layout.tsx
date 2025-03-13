@@ -2,6 +2,7 @@ import { Card, Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React, { ReactNode } from "react";
 import { Outlet, useNavigate } from "react-router";
+import { UserContext } from "../context/user";
 import { useUser } from "../hook/user";
 
 interface LayoutProps {
@@ -45,9 +46,11 @@ const DefaultLayout: React.FC = () => {
     >
       <Header className="header">Book Store</Header>
       <Content>
-        <Card style={{ margin: "20px" }}>
-          <Outlet />
-        </Card>
+        <UserContext.Provider value={{ user, refreshUser: refetch, isLoading }}>
+          <Card style={{ margin: "20px" }}>
+            <Outlet />
+          </Card>
+        </UserContext.Provider>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         <div>电子书城 SE2321 2025</div>
