@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { PREFIX } from "./common";
 
 const client = axios.create({
@@ -7,4 +7,16 @@ const client = axios.create({
   withCredentials: true,
 });
 
-export default client;
+export const get = <T>(endpoint: string, options?: AxiosRequestConfig) =>
+  client.get<T>(endpoint, { ...options }).then((res) => res.data);
+export const post = <T, D = any>(
+  endpoint: string,
+  data?: D,
+  options?: AxiosRequestConfig
+) => client.post<T>(endpoint, data, { ...options }).then((res) => res.data);
+
+export const put = <T, D = any>(
+  endpoint: string,
+  data?: D,
+  options?: AxiosRequestConfig
+) => client.put<T>(endpoint, data, { ...options }).then((res) => res.data);

@@ -1,9 +1,8 @@
-import { Layout } from "antd";
+import { Card, Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
-import useMessage from "antd/es/message/useMessage";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { getMe } from "../service/user";
+import { useUser } from "../hook/user";
 
 interface LayoutProps {
   children: ReactNode;
@@ -34,30 +33,21 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
 };
 
 const DefaultLayout: React.FC = () => {
-  const navigate = useNavigate();
-  const [messageApi, contextHolder] = useMessage();
+  const { data, refetch, isLoading } = useUser();
+  const user = data ?? null;
+  // console.log(user);
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      let resp = await getMe();
-      if (!resp.ok) {
-        await messageApi.error(`请先登录! ${resp.message}`, 1);
-        navigate("/login");
-        return;
-      }
-    };
-    checkLogin();
-  }, [navigate]);
   return (
     <Layout
       style={{
         height: "100vh",
       }}
     >
-      {contextHolder}
       <Header className="header">Book Store</Header>
       <Content>
-        <Outlet />
+        <Card style={{ margin: "20px" }}>
+          <Outlet />
+        </Card>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         <div>电子书城 SE2321 2025</div>

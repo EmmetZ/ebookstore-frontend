@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider, ThemeConfig } from "antd";
 import React from "react";
 import Router from "./router";
@@ -14,9 +15,13 @@ const App: React.FC = () => {
       },
     },
   };
+  const queryClient = new QueryClient();
+
   return (
     <ConfigProvider theme={theme}>
-      <Router />
+      <QueryClientProvider client={queryClient}>
+        <Router />
+      </QueryClientProvider>
     </ConfigProvider>
   );
 };

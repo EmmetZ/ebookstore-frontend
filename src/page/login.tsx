@@ -2,40 +2,20 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input, Space, theme } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import Title from "antd/es/typography/Title";
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { login } from "../service/user";
+import React from "react";
+import { useLogin } from "../hook/user";
 import { LoginFormValue } from "../types";
 import { LoginLayout } from "./layout";
 
 const { useToken } = theme;
 
 const LoginPage: React.FC = () => {
-  const [isLoading, setLoading] = useState(false);
   const { token } = useToken();
   const [messageApi, contextHolder] = useMessage();
-  const navigate = useNavigate();
-
+  const mutation = useLogin(messageApi);
   const onFinish = (values: LoginFormValue) => {
     if (values) {
-      setLoading(true);
-      login(values)
-        .then(async (resp) => {
-          const msg = resp.message;
-          if (!resp.ok) {
-            messageApi.error(msg, 3);
-            return;
-          }
-          await messageApi.success(msg, 0.5);
-          navigate("/");
-        })
-        .catch(async (error) => {
-          messageApi.error(`登录失败! ${error.message}`, 3);
-          console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      mutation.mutate(values);
     }
   };
 
@@ -96,7 +76,7 @@ const LoginPage: React.FC = () => {
                 block
                 type="primary"
                 htmlType="submit"
-                loading={isLoading}
+                loading={mutation.isPending}
               >
                 登录
               </Button>
