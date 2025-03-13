@@ -2,6 +2,7 @@ import { Card, Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import React, { ReactNode } from "react";
 import { Outlet, useNavigate } from "react-router";
+import NavBar from "../components/navbar";
 import { UserContext } from "../context/user";
 import { useUser } from "../hook/user";
 
@@ -44,7 +45,9 @@ const DefaultLayout: React.FC = () => {
         height: "100vh",
       }}
     >
-      <Header className="header">Book Store</Header>
+      <Header className="header">
+        <NavBar user={user} />
+      </Header>
       <Content>
         <UserContext.Provider value={{ user, refreshUser: refetch, isLoading }}>
           <Card style={{ margin: "20px" }}>
