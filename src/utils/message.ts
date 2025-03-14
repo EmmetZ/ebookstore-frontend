@@ -5,7 +5,7 @@ const handleResponse = async (
   resp: Response<any>,
   messageApi: MessageInstance,
   onSuccess?: () => void | Promise<void>,
-  onError?: () => void | Promise<void>
+  onError?: () => void | Promise<void>,
 ) => {
   const msg = resp.message;
   if (!resp.ok) {

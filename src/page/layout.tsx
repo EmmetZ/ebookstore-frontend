@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 import { Outlet, useNavigate } from "react-router";
 import NavBar from "../components/navbar";
 import { UserContext } from "../context/user";
-import { useUser } from "../hook/user";
+import { useMe } from "../hook/user";
 
 interface LayoutProps {
   children: ReactNode;
@@ -35,7 +35,7 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
 };
 
 const DefaultLayout: React.FC = () => {
-  const { data, refetch, isLoading } = useUser();
+  const { data, refetch, isLoading } = useMe();
   const user = data ?? null;
   // console.log(user);
 

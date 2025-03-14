@@ -12,7 +12,7 @@ const UserAvatar: React.FC<AvatarProps> = ({ user, size }) => {
   return (
     <>
       {user.avatar ? (
-        <Avatar src={user.avatar} size={size}/>
+        <Avatar src={user.avatar} size={size} />
       ) : (
         <Avatar
           icon={<UserOutlined style={{ color: "black" }} />}

@@ -1,8 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { MessageInstance } from "antd/es/message/interface";
 import { useNavigate } from "react-router";
-import { getMe, login, logout } from "../service/user";
+import { login, logout } from "../service/user";
+import { User } from "../types";
 import handleResponse from "../utils/message";
+import { useData } from "./data";
 
 export const useLogin = (messageApi: MessageInstance) => {
   const navigate = useNavigate();
@@ -27,16 +29,13 @@ export const useLogout = (messageApi: MessageInstance) => {
       await handleResponse(resp, messageApi, () => navigate("/login"));
     },
     onError: async (error) => {
-      messageApi.error(`登录失败! ${error.message}`, 3);
+      messageApi.error(`登出失败! ${error.message}`, 3);
       console.log(error);
     },
   });
   return mutation;
 };
 
-export const useUser = () => {
-  return useQuery({
-    queryKey: ["user"],
-    queryFn: getMe,
-  });
+export const useMe = () => {
+  return useData<User>(["me"], "/user/me");
 };

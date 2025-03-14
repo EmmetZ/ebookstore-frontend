@@ -1,6 +1,6 @@
-import { createContext, Dispatch, useContext } from "react";
-import { User } from "../types";
 import { QueryObserverResult } from "@tanstack/react-query";
+import { createContext, useContext } from "react";
+import { User } from "../types";
 
 interface TUserContext {
   user: User | null;
