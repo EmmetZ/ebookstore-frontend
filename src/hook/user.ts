@@ -1,8 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MessageInstance } from "antd/es/message/interface";
 import { useNavigate } from "react-router";
-import { login, logout } from "../service/user";
-import { User } from "../types";
+import { login, logout, updateIntro } from "../service/user";
+import {
+    IntroFormValue,
+    Response,
+    User
+} from "../types";
 import handleResponse from "../utils/message";
 import { useData } from "./data";
 
@@ -38,4 +42,33 @@ export const useLogout = (messageApi: MessageInstance) => {
 
 export const useMe = () => {
   return useData<User>(["me"], "/user/me");
+};
+
+export const useUpdateIntro = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    Response<null>,
+    Error,
+    IntroFormValue,
+    { previousUser: User | undefined }
+  >({
+    mutationFn: updateIntro,
+    onMutate: async ({ introduction }) => {
+      await queryClient.cancelQueries({ queryKey: ["me"] });
+      const previousUser = queryClient.getQueryData<User>(["me"]);
+
+      queryClient.setQueriesData<User>({ queryKey: ["me"] }, (old) =>
+        old ? ({ ...old, introduction } as User) : old,
+      );
+
+      return { previousUser };
+    },
+    onError: async (_, __, context) => {
+      queryClient.setQueryData<User>(["me"], context?.previousUser);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
+  });
 };

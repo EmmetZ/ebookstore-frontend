@@ -16,3 +16,7 @@ export interface User {
   avatar: string | null;
   introduction: string | null;
 }
+
+export interface IntroFormValue {
+  introduction: string;
+}
