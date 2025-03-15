@@ -21,3 +21,5 @@ export const put = <T, D = any>(
   options?: AxiosRequestConfig,
 ) => client.put<T>(endpoint, body, { ...options }).then((res) => res.data);
 
+export const del = <T>(endpoint: string, options?: AxiosRequestConfig) =>
+  client.delete<T>(endpoint, { ...options }).then((res) => res.data);

@@ -20,3 +20,13 @@ export interface User {
 export interface IntroFormValue {
   introduction: string;
 }
+
+export interface Address extends AddressFormValue {
+  id: number;
+}
+
+export interface AddressFormValue {
+  address: string;
+  tel: string;
+  receiver: string;
+}
