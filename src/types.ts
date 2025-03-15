@@ -30,3 +30,7 @@ export interface AddressFormValue {
   tel: string;
   receiver: string;
 }
+
+export interface PasswordFormValue {
+  password: string;
+}

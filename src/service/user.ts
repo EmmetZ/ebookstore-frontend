@@ -2,6 +2,7 @@ import {
   AddressFormValue,
   IntroFormValue,
   LoginFormValue,
+  PasswordFormValue,
   Response,
 } from "../types";
 import { del, post, put } from "./client";
@@ -19,3 +20,6 @@ export const deleteAddress = (id: number) =>
 
 export const addAddress = (body: AddressFormValue) =>
   post<Response<null>>("/user/me/addresses", body);
+
+export const updatePassword = (body: PasswordFormValue) =>
+  put<Response<null>>("/user/me/password", body);
