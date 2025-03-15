@@ -2,11 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MessageInstance } from "antd/es/message/interface";
 import { useNavigate } from "react-router";
 import { login, logout, updateIntro } from "../service/user";
-import {
-    IntroFormValue,
-    Response,
-    User
-} from "../types";
+import { IntroFormValue, OtherUser, Response, User } from "../types";
 import handleResponse from "../utils/message";
 import { useData } from "./data";
 
@@ -71,4 +67,8 @@ export const useUpdateIntro = () => {
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },
   });
+};
+
+export const useUser = (id: string) => {
+  return useData<OtherUser>(["user", id], `/user/${id}`);
 };

@@ -34,3 +34,10 @@ export interface AddressFormValue {
 export interface PasswordFormValue {
   password: string;
 }
+
+export interface OtherUser {
+  username: string;
+  nickname: string;
+  avatar: string | null;
+  introduction: string | null;
+}

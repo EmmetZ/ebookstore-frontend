@@ -4,11 +4,12 @@ import useMessage from "antd/es/message/useMessage";
 import Dragger from "antd/es/upload/Dragger";
 import React, { useState } from "react";
 import useUserContext from "../context/user";
-import { User } from "../types";
 import { AVATAR_UPLOAD_URL } from "../service/common";
+import { OtherUser, User } from "../types";
+import isUser from "../utils/user";
 
 interface Props {
-  user: User;
+  user: User | OtherUser;
 }
 
 const ProfileAvatar: React.FC<Props> = ({ user }) => {
@@ -64,39 +65,43 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
     <Space style={{ position: "relative" }}>
       {contextHolder}
       <Avatar src={user.avatar} size={280} />
-      <Tooltip title="编辑头像" placement="bottom">
-        <Button
-          shape="circle"
-          icon={<EditOutlined />}
-          style={{
-            position: "absolute",
-            right: "30px",
-            bottom: "25px",
-            zIndex: 1,
-          }}
-          onClick={showModal}
-        ></Button>
-      </Tooltip>
-      <Modal
-        title="上传头像"
-        open={isModalOpen}
-        onCancel={closeModal}
-        footer={[
-          <Button onClick={closeModal} type="primary">
-            Ok
-          </Button>,
-        ]}
-      >
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">点击或拖拽文件到这里上传</p>
-          <p className="ant-upload-hint">
-            支持 .jpg .png 格式的图片文件，图片大小不超过10M
-          </p>
-        </Dragger>
-      </Modal>
+      {isUser(user) && (
+        <>
+          <Tooltip title="编辑头像" placement="bottom">
+            <Button
+              shape="circle"
+              icon={<EditOutlined />}
+              style={{
+                position: "absolute",
+                right: "30px",
+                bottom: "25px",
+                zIndex: 1,
+              }}
+              onClick={showModal}
+            ></Button>
+          </Tooltip>
+          <Modal
+            title="上传头像"
+            open={isModalOpen}
+            onCancel={closeModal}
+            footer={[
+              <Button onClick={closeModal} type="primary">
+                Ok
+              </Button>,
+            ]}
+          >
+            <Dragger {...props}>
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">点击或拖拽文件到这里上传</p>
+              <p className="ant-upload-hint">
+                支持 .jpg .png 格式的图片文件，图片大小不超过10M
+              </p>
+            </Dragger>
+          </Modal>
+        </>
+      )}
     </Space>
   );
 };
