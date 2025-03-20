@@ -14,7 +14,7 @@ import { User } from "../types";
 import UserAvatar from "./avatar";
 
 interface AvatarProps {
-  user: User | null;
+  user: User;
 }
 
 const NavbarAvatar: React.FC<AvatarProps> = ({ user }) => {

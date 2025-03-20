@@ -11,7 +11,7 @@ export const useLogin = (messageApi: MessageInstance) => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: async (resp) => {
-      await handleResponse(resp, messageApi, () => navigate(-1));
+      await handleResponse(resp, messageApi, () => navigate("/"));
     },
     onError: async (error) => {
       messageApi.error(`登录失败! ${error.message}`, 3);

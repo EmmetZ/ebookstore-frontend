@@ -4,8 +4,9 @@ import {
   LoginFormValue,
   PasswordFormValue,
   Response,
+  User,
 } from "../types";
-import { del, post, put } from "./client";
+import { del, get, post, put } from "./client";
 
 export const login = (body: LoginFormValue) =>
   post<Response<null>>("/login", body);
@@ -23,3 +24,12 @@ export const addAddress = (body: AddressFormValue) =>
 
 export const updatePassword = (body: PasswordFormValue) =>
   put<Response<null>>("/user/me/password", body);
+
+export const getMe: () => Promise<User | null> = async () => {
+  try {
+    let resp = await get<User>("/user/me");
+    return resp;
+  } catch (e: any) {
+    return null;
+  }
+};

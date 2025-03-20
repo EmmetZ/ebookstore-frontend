@@ -10,22 +10,18 @@ import Introduction from "./intro";
 import ProfileAvatar from "./profile_avatar";
 
 const UserProfile: React.FC = () => {
-  const { user, isLoading } = useUserContext();
+  const { user } = useUserContext();
   const [messageApi, contextHolder] = useMessage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && !isLoading) {
+    if (!user) {
       console.log(user);
       const msg = async () => await messageApi.error("请先登录!", 0.5);
       msg();
       navigate("/login");
     }
-  }, [user, isLoading, messageApi, navigate]);
-
-  if (isLoading) {
-    return null;
-  }
+  }, [user, messageApi, navigate]);
 
   return (
     <Row justify="center" gutter={96} style={{ margin: "0 20px" }}>

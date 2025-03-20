@@ -7,7 +7,7 @@ import NavbarAvatar from "./navbar_avatar";
 type Tab = "home" | "cart" | "order" | "";
 
 interface NavBarProps {
-  user: User | null;
+  user: User;
 }
 
 const NavBar: React.FC<NavBarProps> = ({ user }) => {

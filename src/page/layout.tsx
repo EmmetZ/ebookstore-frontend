@@ -1,10 +1,12 @@
 import { Card, Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
-import React, { ReactNode } from "react";
+import useMessage from "antd/es/message/useMessage";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import NavBar from "../components/navbar";
+import { getMe } from "../service/user";
+import { User } from "../types";
 import { UserContext } from "../context/user";
-import { useMe } from "../hook/user";
 
 interface LayoutProps {
   children: ReactNode;
@@ -35,9 +37,22 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
 };
 
 const DefaultLayout: React.FC = () => {
-  const { data, refetch, isLoading } = useMe();
-  const user = data ?? null;
-  // console.log(user);
+  const [messageApi, contextHolder] = useMessage();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const checkLogin = async () => {
+      console.log("checkLogin");
+      const me = await getMe();
+      if (!me) {
+        await messageApi.error("请先登录", 1);
+        navigate("/login");
+      } else {
+        setUser(me);
+      }
+    };
+    checkLogin();
+  }, []);
 
   return (
     <Layout
@@ -45,15 +60,16 @@ const DefaultLayout: React.FC = () => {
         height: "100vh",
       }}
     >
-      <Header className="header">
-        <NavBar user={user} />
-      </Header>
+      {contextHolder}
+      <Header className="header">{user && <NavBar user={user} />}</Header>
       <Content>
-        <UserContext.Provider value={{ user, refreshUser: refetch, isLoading }}>
-          <Card style={{ margin: "20px" }}>
-            <Outlet />
-          </Card>
-        </UserContext.Provider>
+        {user && (
+          <UserContext.Provider value={{ user, setUser }}>
+            <Card style={{ margin: "20px" }}>
+              <Outlet />
+            </Card>
+          </UserContext.Provider>
+        )}
       </Content>
       <Footer style={{ textAlign: "center" }}>
         <div>电子书城 SE2321 2025</div>

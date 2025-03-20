@@ -5,6 +5,7 @@ import Dragger from "antd/es/upload/Dragger";
 import React, { useState } from "react";
 import useUserContext from "../context/user";
 import { AVATAR_UPLOAD_URL } from "../service/common";
+import { getMe } from "../service/user";
 import { OtherUser, User } from "../types";
 import isUser from "../utils/user";
 import UserAvatar from "./avatar";
@@ -17,7 +18,7 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const showModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
-  const { refreshUser } = useUserContext();
+  const { setUser } = useUserContext();
   const [messageApi, contextHolder] = useMessage();
 
   const props: UploadProps = {
@@ -38,7 +39,12 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
           1,
         );
         closeModal();
-        refreshUser();
+        const me = await getMe();
+        if (me) {
+          setUser(me);
+        } else {
+          await messageApi.error("刷新失败");
+        }
       } else if (status === "error") {
         await messageApi.error(`${info.file.name} file upload failed.`);
       }
