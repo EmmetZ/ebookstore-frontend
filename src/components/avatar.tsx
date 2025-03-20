@@ -1,10 +1,10 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import React from "react";
-import { User } from "../types";
+import { OtherUser, User } from "../types";
 
 interface AvatarProps {
-  user: User;
+  user: User | OtherUser;
   size?: number;
 }
 
@@ -20,6 +20,7 @@ const UserAvatar: React.FC<AvatarProps> = ({ user, size }) => {
             backgroundColor: "white",
             border: "1px solid gray",
           }}
+          size={size}
         />
       )}
     </>

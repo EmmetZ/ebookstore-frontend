@@ -1,5 +1,5 @@
 import { EditOutlined, InboxOutlined } from "@ant-design/icons";
-import { Avatar, Button, Modal, Space, Tooltip, UploadProps } from "antd";
+import { Button, Modal, Space, Tooltip, UploadProps } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import Dragger from "antd/es/upload/Dragger";
 import React, { useState } from "react";
@@ -7,6 +7,7 @@ import useUserContext from "../context/user";
 import { AVATAR_UPLOAD_URL } from "../service/common";
 import { OtherUser, User } from "../types";
 import isUser from "../utils/user";
+import UserAvatar from "./avatar";
 
 interface Props {
   user: User | OtherUser;
@@ -64,7 +65,7 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
   return (
     <Space style={{ position: "relative" }}>
       {contextHolder}
-      <Avatar src={user.avatar} size={280} />
+      <UserAvatar user={user} size={280} />
       {isUser(user) && (
         <>
           <Tooltip title="编辑头像" placement="bottom">
