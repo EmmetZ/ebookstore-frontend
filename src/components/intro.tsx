@@ -29,7 +29,9 @@ const Introduction: React.FC<Props> = ({ user }) => {
         messageApi.success("更新成功");
         closeModal();
       },
-      onError: () => messageApi.error("更新失败"),
+      onError: (e) => {
+        messageApi.error(`更新失败${e.message}`);
+      },
     });
   };
 
