@@ -48,6 +48,7 @@ const AddressCard: React.FC = () => {
       <List
         style={{
           marginTop: "20px",
+          minWidth: "500px",
         }}
         header={
           <Flex justify="space-between" align="center">
