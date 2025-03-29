@@ -63,3 +63,15 @@ export interface ListResponse<T> {
   items: T[];
 }
 
+export interface Comment {
+  id: number;
+  userId: number;
+  username: string;
+  avatar: string;
+  content: string;
+  reply: string;
+  like: number;
+  liked: boolean;
+  createdAt: string;
+}
+

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
+import BookPage from "./page/book";
 import HomePage from "./page/home";
 import DefaultLayout from "./page/layout";
 import LoginPage from "./page/login";
@@ -28,6 +29,7 @@ const Router: React.FC = () => {
         >
           <Route index element={<HomePage />} />
           <Route path="profile/:userId" element={<ProfilePage />} />
+          <Route path="book/:bookId" element={<BookPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFound />} />

@@ -22,3 +22,6 @@ export const useBooks = (
     },
   });
 };
+
+export const useBook = (id: string) =>
+  useData<Book>(["book", id], `/book/${id}`);
