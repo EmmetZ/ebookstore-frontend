@@ -3,6 +3,7 @@ import { Button, Col, Image, Row } from "antd";
 import React from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router";
 import BookInfoCard from "../components/book_info_card";
+import PriceCard from "../components/price_card";
 import { useBook } from "../hook/book";
 import { useComment } from "../hook/comment";
 
@@ -46,6 +47,7 @@ const BookPage: React.FC = () => {
         </Col>
         <Col span={16}>
           <BookInfoCard book={book} commentNum={comments?.total} />
+          <PriceCard book={book} />
         </Col>
       </Row>
     </div>

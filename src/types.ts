@@ -75,3 +75,8 @@ export interface Comment {
   createdAt: string;
 }
 
+export interface CartItem {
+  id: number;
+  book: Book;
+  number: number;
+}
