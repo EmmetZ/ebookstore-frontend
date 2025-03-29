@@ -47,3 +47,19 @@ export interface Tag {
   name: string;
 }
 
+export interface Book {
+  id: number;
+  author: string;
+  cover: string;
+  description: string;
+  price: number;
+  sales: number;
+  title: string;
+  tags: Tag[];
+}
+
+export interface ListResponse<T> {
+  total: number;
+  items: T[];
+}
+
