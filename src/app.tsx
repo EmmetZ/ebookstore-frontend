@@ -13,6 +13,10 @@ const App: React.FC = () => {
       Layout: {
         headerBg: "white",
       },
+      Select: {
+        optionSelectedColor: "white",
+        optionSelectedBg: "#141414",
+      }
     },
   };
   const queryClient = new QueryClient();
