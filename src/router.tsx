@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import HomePage from "./page/home";
 import DefaultLayout from "./page/layout";
 import LoginPage from "./page/login";
+import NotFound from "./page/notfound";
 import ProfilePage from "./page/profile";
 
 // const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const Router: React.FC = () => {
           <Route path="profile/:userId" element={<ProfilePage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
