@@ -7,7 +7,7 @@ interface Param extends Record<string, string | undefined> {
   userId: string;
 }
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
   const param = useParams<Param>();
   if (param.userId === "me") {
     return <UserProfile />;
@@ -15,4 +15,4 @@ const Profile: React.FC = () => {
   return <OtherUserProfile userId={param.userId!} />;
 };
 
-export default Profile;
+export default ProfilePage;

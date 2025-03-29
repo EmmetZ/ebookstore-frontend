@@ -41,3 +41,9 @@ export interface OtherUser {
   avatar: string | null;
   introduction: string | null;
 }
+
+export interface Tag {
+  id: number;
+  name: string;
+}
+
