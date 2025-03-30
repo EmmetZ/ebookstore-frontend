@@ -11,7 +11,7 @@ export const useBooks = (
   pageIndex: number,
   pageSize: number
 ) => {
-  return useData<ListResponse<Book>>(["books"], "/book", {
+  return useData<ListResponse<Book>>(["books"], "/books", {
     requestConfig: {
       params: {
         keyword,
