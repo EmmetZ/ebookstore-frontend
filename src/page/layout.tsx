@@ -17,7 +17,7 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Layout
       style={{
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Header className="header">
@@ -57,7 +57,7 @@ const DefaultLayout: React.FC = () => {
   return (
     <Layout
       style={{
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       {contextHolder}
