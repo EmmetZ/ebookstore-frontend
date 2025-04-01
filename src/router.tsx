@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import BookPage from "./page/book";
+import CartPage from "./page/cart";
 import HomePage from "./page/home";
 import DefaultLayout from "./page/layout";
 import LoginPage from "./page/login";
@@ -28,6 +29,7 @@ const Router: React.FC = () => {
           errorElement={<div>error</div>}
         >
           <Route index element={<HomePage />} />
+          <Route path="cart" element={<CartPage />} />
           <Route path="profile/:userId" element={<ProfilePage />} />
           <Route path="book/:bookId" element={<BookPage />} />
         </Route>

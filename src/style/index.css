@@ -46,3 +46,12 @@
 .price-info {
   color: #999
 }
+
+.cart-book-info {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
