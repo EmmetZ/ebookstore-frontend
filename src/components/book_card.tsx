@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, Flex, Typography } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
 import { Book } from "../types";
@@ -30,6 +30,11 @@ const BookCard: React.FC<Props> = ({ book }) => {
           </p>
         }
       />
+      <Flex justify="end" style={{ marginTop: "10px" }}>
+        <Typography.Text strong style={{ fontSize: "1.2em" }}>
+          {book.price / 100}元
+        </Typography.Text>
+      </Flex>
     </Card>
   );
 };
