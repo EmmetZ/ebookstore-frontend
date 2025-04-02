@@ -1,4 +1,4 @@
-import { Card, Layout, Spin } from "antd";
+import { Card, Layout } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import useMessage from "antd/es/message/useMessage";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -54,28 +54,6 @@ const DefaultLayout: React.FC = () => {
     };
     checkLogin();
   }, [me, isPending]);
-
-  if (isPending) {
-    return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <Header className="header">
-          <div style={{ color: "white" }}>Book Store</div>
-        </Header>
-        <Content
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Spin size="large" tip="加载中..." />
-        </Content>
-        <Footer className="footer">
-          <div>电子书城 SE2321 2025</div>
-        </Footer>
-      </Layout>
-    );
-  }
 
   return (
     <Layout
