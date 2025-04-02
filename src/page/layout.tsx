@@ -1,12 +1,12 @@
-import { Card, Layout } from "antd";
+import { Card, Layout, Spin } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import useMessage from "antd/es/message/useMessage";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import NavBar from "../components/navbar";
-import { getMe } from "../service/user";
-import { User } from "../types";
 import { UserContext } from "../context/user";
+import { useMe } from "../hook/user";
+import { User } from "../types";
 
 interface LayoutProps {
   children: ReactNode;
@@ -40,19 +40,42 @@ const DefaultLayout: React.FC = () => {
   const [messageApi, contextHolder] = useMessage();
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const { data: me, isPending } = useMe();
   useEffect(() => {
     const checkLogin = async () => {
-      console.log("checkLogin");
-      const me = await getMe();
-      if (!me) {
+      if (!me && !isPending) {
         await messageApi.error("请先登录", 1);
         navigate("/login");
-      } else {
+        return;
+      }
+      if (me) {
         setUser(me);
       }
     };
     checkLogin();
-  }, []);
+  }, [me, isPending]);
+
+  if (isPending) {
+    return (
+      <Layout style={{ minHeight: "100vh" }}>
+        <Header className="header">
+          <div style={{ color: "white" }}>Book Store</div>
+        </Header>
+        <Content
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spin size="large" tip="加载中..." />
+        </Content>
+        <Footer className="footer">
+          <div>电子书城 SE2321 2025</div>
+        </Footer>
+      </Layout>
+    );
+  }
 
   return (
     <Layout

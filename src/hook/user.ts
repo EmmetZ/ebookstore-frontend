@@ -37,7 +37,7 @@ export const useLogout = (messageApi: MessageInstance) => {
 };
 
 export const useMe = () => {
-  return useData<User>(["me"], "/user/me");
+  return useData<User>(["me"], "/user/me", { retry: 0 });
 };
 
 export const useUpdateIntro = () => {
