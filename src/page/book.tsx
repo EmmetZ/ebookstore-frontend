@@ -6,6 +6,7 @@ import BookInfoCard from "../components/book_info_card";
 import PriceCard from "../components/price_card";
 import { useBook } from "../hook/book";
 import { useComment } from "../hook/comment";
+import CommentList from "../components/comment_list";
 
 interface Params extends Record<string, string | undefined> {
   bookId: string;
@@ -37,7 +38,7 @@ const BookPage: React.FC = () => {
           margin: "12px 12px 24px 12px",
         }}
         icon={<ArrowLeftOutlined />}
-        onClick={() => navigate("/")}
+        onClick={() => navigate(-1)}
       >
         返回主页面
       </Button>
@@ -46,9 +47,10 @@ const BookPage: React.FC = () => {
           <Image src={book.cover} preview={false} />
         </Col>
         <Col span={16}>
-          <BookInfoCard book={book} commentNum={comments?.total} />
+          <BookInfoCard book={book} commentNum={comments?.items.length} />
           <PriceCard book={book} />
         </Col>
+        <CommentList comments={comments} />
       </Row>
     </div>
   );
