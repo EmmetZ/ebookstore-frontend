@@ -1,16 +1,16 @@
 import { Card, Col, Flex, List, Row, Space, Typography } from "antd";
 import React from "react";
 import { CartItem } from "../types";
+import { Link } from "react-router";
 
 interface Props {
   items: CartItem[];
+  link?: boolean;
 }
 
-const CheckoutItemList: React.FC<Props> = ({ items }) => {
+const CheckoutItemList: React.FC<Props> = ({ items, link = false }) => {
   return (
     <>
-      <Typography.Title level={3}>订单结算</Typography.Title>
-
       <Card title="订单商品" style={{ marginBottom: "20px" }}>
         <List
           dataSource={items}
@@ -25,9 +25,20 @@ const CheckoutItemList: React.FC<Props> = ({ items }) => {
                       style={{ width: "100px", marginRight: "20px" }}
                     />
                     <Flex vertical style={{ flex: 1 }}>
-                      <Typography.Text strong style={{ fontSize: "1.2em" }}>
-                        {item.book.title}
-                      </Typography.Text>
+                      {link ? (
+                        <Link
+                          to={`/book/${item.book.id}`}
+                          className="hover-underline"
+                        >
+                          <Typography.Text strong style={{ fontSize: "1.2em" }}>
+                            {item.book.title}
+                          </Typography.Text>
+                        </Link>
+                      ) : (
+                        <Typography.Text strong style={{ fontSize: "1.2em" }}>
+                          {item.book.title}
+                        </Typography.Text>
+                      )}
                       <Typography.Text type="secondary">
                         {item.book.author}
                       </Typography.Text>

@@ -102,6 +102,7 @@ const CheckoutPage: React.FC = () => {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       {contextHolder}
+      <Typography.Title level={3}>订单结算</Typography.Title>
       <CheckoutItemList items={selectedItems} />
       <CheckoutAddr
         addresses={addresses}

@@ -80,3 +80,8 @@ export interface CartItem {
   book: Book;
   number: number;
 }
+
+export interface Order extends Address {
+  createdAt: string;
+  items: CartItem[];
+}

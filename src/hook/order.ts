@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { post } from "../service/client";
-import { Address, Response } from "../types";
+import { Address, Order, Response } from "../types";
+import { useData } from "./data";
 
 interface OrderRequest extends Address {
   itemIds: number[];
@@ -19,3 +20,5 @@ export const usePlaceOrder = () => {
     },
   });
 };
+
+export const useOrders = () => useData<Order[]>(["orders"], "/order");
