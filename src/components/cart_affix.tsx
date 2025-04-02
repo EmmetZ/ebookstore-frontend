@@ -1,20 +1,32 @@
 import { Affix, AffixRef, Button, Divider, Flex, Typography } from "antd";
 import React, { useEffect, useRef } from "react";
-import useSumContext from "../context/sum";
+import { useNavigate } from "react-router";
+import useCartContext from "../context/cart";
 
 interface Props {
   num: number;
 }
 
 const CartAffix: React.FC<Props> = ({ num }) => {
-  const { sum } = useSumContext();
+  const { sum, selectedList } = useCartContext();
   const ref = useRef<AffixRef>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (ref.current && ref.current.updatePosition) {
       ref.current.updatePosition();
     }
   }, [num]);
+
+  const handleCheckout = () => {
+    const timestamp = new Date().getTime();
+    navigate(`/checkout/${timestamp}`, { 
+      state: { 
+        selectedItems: selectedList,
+        totalAmount: sum 
+      }
+    });
+  };
 
   return (
     <Affix offsetBottom={0} ref={ref}>
@@ -33,7 +45,12 @@ const CartAffix: React.FC<Props> = ({ num }) => {
               ￥{(sum / 100).toFixed(2)}
             </span>
           </Typography.Text>
-          <Button type="primary" size="large" disabled={sum === 0}>
+          <Button 
+            type="primary" 
+            size="large" 
+            disabled={sum === 0 || selectedList.length === 0}
+            onClick={handleCheckout}
+          >
             <span style={{ fontSize: "1.1em" }}>去结算</span>
           </Button>
         </Flex>

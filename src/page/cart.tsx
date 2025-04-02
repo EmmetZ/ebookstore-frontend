@@ -2,12 +2,13 @@ import { Typography } from "antd";
 import React, { useState } from "react";
 import CartAffix from "../components/cart_affix";
 import CartList from "../components/cart_list";
-import { SumContext } from "../context/sum";
+import { CartContext } from "../context/cart";
 import { useCart } from "../hook/cart";
 
 const CartPage: React.FC = () => {
   const { data: cart, isPending, error } = useCart();
   const [sum, setSum] = useState(0);
+  const [selectedList, setSelectedList] = useState<number[]>([]);
 
   if (isPending || error) {
     return null;
@@ -24,10 +25,12 @@ const CartPage: React.FC = () => {
       <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
         购物车
       </Typography.Title>
-      <SumContext.Provider value={{ sum, setSum }}>
+      <CartContext.Provider
+        value={{ sum, setSum, selectedList, setSelectedList }}
+      >
         <CartList cart={cart} />
         {cart.length !== 0 && <CartAffix num={cart.length} />}
-      </SumContext.Provider>
+      </CartContext.Provider>
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Flex, List, Modal, Space, Typography } from "antd";
+import { Button, Flex, List, Modal, Typography } from "antd";
 import React from "react";
 import { Address } from "../types";
+import AddressDetail from "./address_detail";
 
 interface Props {
   address: Address;
@@ -18,19 +19,7 @@ const AddressItem: React.FC<Props> = ({ address, handleDelete }) => {
       onMouseLeave={() => setHover(false)}
     >
       <Flex justify="space-between" style={{ width: "100%" }}>
-        <Space direction="vertical" style={{ marginRight: "40px" }}>
-          <Typography.Text style={{ fontWeight: "bold" }}>
-            {address.address}
-          </Typography.Text>
-          <div>
-            <Typography.Text className="address-reciver">
-              收件人：{address.receiver}
-            </Typography.Text>
-            <Typography.Text className="address-tel">
-              联系方式：{address.tel}
-            </Typography.Text>
-          </div>
-        </Space>
+        <AddressDetail address={address} />
         <Button
           className={`delete-btn ${isHover ? "visible" : ""}`}
           icon={<DeleteOutlined />}

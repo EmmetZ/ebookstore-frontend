@@ -1,19 +1,19 @@
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import {
-    Button,
-    Checkbox,
-    Col,
-    Flex,
-    InputNumber,
-    List,
-    Row,
-    Space,
-    Typography,
+  Button,
+  Checkbox,
+  Col,
+  Flex,
+  InputNumber,
+  List,
+  Row,
+  Space,
+  Typography,
 } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import useSumContext from "../context/sum";
+import useCartContext from "../context/cart";
 import { useDeleteCartItem, useModifyCartItem } from "../hook/cart";
 import { CartItem } from "../types";
 
@@ -24,7 +24,7 @@ interface Props {
 const CartListItem: React.FC<Props> = ({ item }) => {
   const [isSelected, setSelect] = useState(false);
   const [count, setCount] = useState(item.number || 1);
-  const { setSum } = useSumContext();
+  const { setSum, setSelectedList } = useCartContext();
   const [messageApi, contextHolder] = useMessage();
   const modifyCartItem = useModifyCartItem(messageApi);
   const deleteCartItem = useDeleteCartItem(messageApi);
@@ -42,6 +42,9 @@ const CartListItem: React.FC<Props> = ({ item }) => {
     setSelect(!isSelected);
     setSum((prev) =>
       isSelected ? prev - price * count : prev + price * count,
+    );
+    setSelectedList((prev) =>
+      isSelected ? prev.filter((id) => id !== item.id) : [...prev, item.id],
     );
   };
 
@@ -78,7 +81,10 @@ const CartListItem: React.FC<Props> = ({ item }) => {
       <Row style={{ width: "100%" }} align="middle">
         <Col span={19}>
           <Flex align="center">
-            <Checkbox onClick={() => handleSelect(book.price)} />
+            <Checkbox
+              style={{ marginLeft: "12px" }}
+              onClick={() => handleSelect(book.price)}
+            />
             <img
               src={book.cover}
               alt={book.title}
