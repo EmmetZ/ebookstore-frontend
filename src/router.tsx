@@ -9,6 +9,7 @@ import LoginPage from "./page/login";
 import NotFound from "./page/notfound";
 import OrderPage from "./page/order";
 import ProfilePage from "./page/profile";
+import RankPage from "./page/rank";
 
 // const router = createBrowserRouter([
 //   {
@@ -36,6 +37,7 @@ const Router: React.FC = () => {
           <Route path="order" element={<OrderPage />} />
           <Route path="profile/:userId" element={<ProfilePage />} />
           <Route path="book/:bookId" element={<BookPage />} />
+          <Route path="rank" element={<RankPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFound />} />

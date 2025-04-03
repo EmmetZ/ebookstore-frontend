@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import { User } from "../types";
 import NavbarAvatar from "./navbar_avatar";
 
-type Tab = "home" | "cart" | "order" | "";
+type Tab = "home" | "cart" | "order" | "rank" | "";
 
 interface NavBarProps {
   user: User;
@@ -26,6 +26,8 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       setCurrent("cart");
     } else if (loc.pathname === "/order") {
       setCurrent("order");
+    } else if (loc.pathname === "/rank") {
+      setCurrent("rank");
     } else {
       setCurrent("");
     }
@@ -47,10 +49,15 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       label: "购物车",
       onClick: () => navigate("/cart"),
     },
+    {
+      key: "rank",
+      label: "销量",
+      onClick: () => navigate("/rank"),
+    },
   ];
   return (
     <Flex style={{ justifyContent: "space-between" }}>
-      <Space>
+      <Space style={{ flexGrow: 1 }}>
         <div
           style={{ display: "inline-block", cursor: "pointer" }}
           onClick={() => navigate("/")}
