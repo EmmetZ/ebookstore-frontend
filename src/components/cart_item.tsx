@@ -24,7 +24,7 @@ interface Props {
 const CartListItem: React.FC<Props> = ({ item }) => {
   const [isSelected, setSelect] = useState(false);
   const [count, setCount] = useState(item.number || 1);
-  const { setSum, setSelectedList } = useCartContext();
+  const { setSum, setSelectedList, selectedList } = useCartContext();
   const [messageApi, contextHolder] = useMessage();
   const modifyCartItem = useModifyCartItem(messageApi);
   const deleteCartItem = useDeleteCartItem(messageApi);
@@ -37,6 +37,14 @@ const CartListItem: React.FC<Props> = ({ item }) => {
       setCount(item.number);
     }
   }, [item.number]);
+
+  useEffect(() => {
+    if (selectedList.includes(item.id)) {
+      setSelect(true);
+    } else {
+      setSelect(false);
+    }
+  }, [selectedList]);
 
   const handleSelect = (price: number) => {
     setSelect(!isSelected);
@@ -82,6 +90,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
         <Col span={19}>
           <Flex align="center">
             <Checkbox
+              checked={isSelected}
               style={{ marginLeft: "12px" }}
               onClick={() => handleSelect(book.price)}
             />
