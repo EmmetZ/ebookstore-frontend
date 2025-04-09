@@ -1,29 +1,41 @@
 import { LikeFilled, LikeOutlined } from "@ant-design/icons";
 import { Space, Typography } from "antd";
 import React from "react";
+import { useParams } from "react-router";
+import { useCancelLikeComment, useLikeComment } from "../hook/comment";
 import { Comment } from "../types";
 
 interface Props {
   comment: Comment;
 }
 
+interface Params extends Record<string, string | undefined> {
+  bookId: string;
+}
+
 const LikeButton: React.FC<Props> = ({ comment }) => {
-  const handleLike = (id: number) => {
-    if (comment.liked) {
-      console.log(`${id} unlike`);
-    } else {
-      console.log("like");
+  const { bookId } = useParams<Params>();
+  const likeMutation = useLikeComment();
+  const cancelLikeMutation = useCancelLikeComment();
+
+  const handleLike = () => {
+    if (bookId) {
+      if (comment.liked) {
+        cancelLikeMutation.mutate({
+          commentId: comment.id.toString(),
+          bookId,
+        });
+      } else {
+        likeMutation.mutate({ commentId: comment.id.toString(), bookId });
+      }
     }
   };
   return (
     <Space>
       {comment.liked ? (
-        <LikeFilled
-          onClick={() => handleLike(comment.id)}
-          style={{ color: "#f5222d" }}
-        />
+        <LikeFilled onClick={handleLike} style={{ color: "#f5222d" }} />
       ) : (
-        <LikeOutlined onClick={() => handleLike(comment.id)} />
+        <LikeOutlined onClick={handleLike} />
       )}
       <Typography.Text style={{ color: "gray" }}>
         {comment.like}

@@ -50,7 +50,7 @@ const BookPage: React.FC = () => {
           <BookInfoCard book={book} commentNum={comments?.items.length} />
           <PriceCard book={book} />
         </Col>
-        <CommentList comments={comments} />
+        {comments && <CommentList comments={comments} />}
       </Row>
     </div>
   );
