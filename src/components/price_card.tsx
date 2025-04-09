@@ -19,7 +19,7 @@ const PriceCard: React.FC<Props> = ({ book }) => {
   return (
     <>
       {contextHolder}
-      <Flex style={{ marginBottom: "1em" }}>
+      <Flex style={{ margin: "1em 0 1.5em" }}>
         <Card
           styles={{
             body: {
@@ -49,7 +49,7 @@ const PriceCard: React.FC<Props> = ({ book }) => {
                   color: "#e4393c",
                 }}
               >
-                ¥{book.price / 100}
+                ¥{(book.price / 100).toFixed(2)}
               </Typography.Title>
             </Space>
             <Typography.Text className="price-info">

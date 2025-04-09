@@ -81,6 +81,8 @@ export interface CartItem {
   number: number;
 }
 
+export type CommentSort = "createdTime" | "like";
+
 export interface Order extends Address {
   createdAt: string;
   items: CartItem[];

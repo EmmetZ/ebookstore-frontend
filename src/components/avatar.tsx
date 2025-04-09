@@ -1,18 +1,18 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import React from "react";
-import { OtherUser, User } from "../types";
+import { AVATAR_URL } from "../service/common";
 
 interface AvatarProps {
-  user: User | OtherUser;
+  src?: string | null;
   size?: number;
 }
 
-const UserAvatar: React.FC<AvatarProps> = ({ user, size }) => {
+const UserAvatar: React.FC<AvatarProps> = ({ src, size }) => {
   return (
     <>
-      {user.avatar ? (
-        <Avatar src={user.avatar} size={size} />
+      {src ? (
+        <Avatar src={`${AVATAR_URL}/${src}`} size={size} />
       ) : (
         <Avatar
           icon={<UserOutlined style={{ color: "black" }} />}

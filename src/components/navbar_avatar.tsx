@@ -71,7 +71,7 @@ const NavbarAvatar: React.FC<AvatarProps> = ({ user }) => {
       <Dropdown menu={{ items }} arrow>
         {/* 需要添加这个 div，不然让无法触发dropdown？？？？ */}
         <div style={{ cursor: "pointer" }}>
-          <UserAvatar user={user} />
+          <UserAvatar src={user.avatar} />
         </div>
       </Dropdown>
     </Space>
