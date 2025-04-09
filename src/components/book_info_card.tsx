@@ -4,10 +4,9 @@ import { Book } from "../types";
 
 interface Props {
   book: Book;
-  commentNum: number | undefined;
 }
 
-const BookInfoCard: React.FC<Props> = ({ book, commentNum }) => {
+const BookInfoCard: React.FC<Props> = ({ book }) => {
   return (
     <>
       <Typography.Title
@@ -32,8 +31,6 @@ const BookInfoCard: React.FC<Props> = ({ book, commentNum }) => {
         </span>
         <Divider type="vertical" className="metadata-divider" />
         {book.sales} 人购买
-        <Divider type="vertical" className="metadata-divider" />
-        {commentNum ?? "?"} 条评论
       </div>
       <Typography.Paragraph
         style={{

@@ -80,3 +80,5 @@ export interface CartItem {
   book: Book;
   number: number;
 }
+
+export type CommentSort = "createdTime" | "like";

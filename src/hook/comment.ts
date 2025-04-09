@@ -27,7 +27,12 @@ interface ReplyComment {
   comment: string;
 }
 
-export const useComment = (id: string, pageIndex: number, sort: string) => {
+export const useComment = (
+  id: string,
+  pageIndex: number,
+  pageSize: number,
+  sort: string,
+) => {
   return useData<ListResponse<Comment>>(
     ["comments", id],
     `/book/${id}/comments`,
@@ -36,7 +41,7 @@ export const useComment = (id: string, pageIndex: number, sort: string) => {
         params: {
           pageIndex,
           sort,
-          pageSize: 10,
+          pageSize: pageSize,
         },
       },
     },

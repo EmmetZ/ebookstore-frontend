@@ -9,7 +9,7 @@ export const useBooks = (
   keyword: string,
   tag: string,
   pageIndex: number,
-  pageSize: number
+  pageSize: number,
 ) => {
   return useData<ListResponse<Book>>(["books"], "/books", {
     requestConfig: {
