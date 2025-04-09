@@ -18,7 +18,7 @@ const BookPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
   const sort = searchParams.get("sort") || "createdTime";
-  const pageIndex = Number(searchParams.get("pageIndex")) || 1;
+  const pageIndex = Number(searchParams.get("pageIndex")) || 0;
   const { data: comments } = useComment(bookId!, pageIndex, sort);
 
   if (isPending || error) {
