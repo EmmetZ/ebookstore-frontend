@@ -21,6 +21,12 @@ interface PostComment {
   comment: string;
 }
 
+interface ReplyComment {
+  commentId: string;
+  bookId: string;
+  comment: string;
+}
+
 export const useComment = (id: string, pageIndex: number, sort: string) => {
   return useData<ListResponse<Comment>>(
     ["comments", id],
@@ -97,6 +103,17 @@ export const usePostComment = () => {
       post<Response<null>>(`/book/${id}/comments`, { content: comment }),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ["comments", id] });
+    },
+  });
+};
+
+export const useReplyPost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ commentId, comment }: ReplyComment) =>
+      post<Response<null>>(`/comment/${commentId}`, { content: comment }),
+    onSuccess: (_, { bookId }) => {
+      queryClient.invalidateQueries({ queryKey: ["comments", bookId] });
     },
   });
 };

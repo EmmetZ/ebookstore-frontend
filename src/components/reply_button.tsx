@@ -1,21 +1,21 @@
 import { CommentOutlined } from "@ant-design/icons";
 import { Space, Typography } from "antd";
 import React from "react";
-import { Comment } from "../types";
 
 interface Props {
-  comment: Comment;
+  reply: boolean;
+  onClick: () => void;
 }
 
-const ReplyButton: React.FC<Props> = ({ comment }) => {
+const ReplyButton: React.FC<Props> = ({ reply, onClick }) => {
   return (
     <Space>
       <CommentOutlined />
       <Typography.Text
         style={{ color: "gray", cursor: "pointer" }}
-        onClick={() => console.log("Reply to comme", comment.id)}
+        onClick={onClick}
       >
-        回复
+        {reply ? "取消回复" : "回复"}
       </Typography.Text>
     </Space>
   );
