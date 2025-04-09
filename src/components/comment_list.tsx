@@ -83,6 +83,14 @@ const CommentList: React.FC<Props> = ({
                 renderItem={(comment) => (
                   <CommentListItem key={comment.id} comment={comment} />
                 )}
+                locale={{
+                  emptyText: (
+                    <Empty
+                      image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      description="暂无评论"
+                    />
+                  ),
+                }}
               />
               <Pagination
                 style={{ marginLeft: "20px" }}
