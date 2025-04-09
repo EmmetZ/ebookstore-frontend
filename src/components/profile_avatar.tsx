@@ -71,7 +71,7 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
   return (
     <Space style={{ position: "relative" }}>
       {contextHolder}
-      <UserAvatar user={user} size={280} />
+      <UserAvatar src={user.avatar} size={280} />
       {isUser(user) && (
         <>
           <Tooltip title="编辑头像" placement="bottom">
