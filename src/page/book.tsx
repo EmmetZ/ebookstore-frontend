@@ -8,6 +8,7 @@ import PriceCard from "../components/price_card";
 import { useBook } from "../hook/book";
 import getComments from "../service/comment";
 import { Comment, CommentSort, ListResponse } from "../types";
+import { CommentContext } from "../context/comment";
 
 interface Params extends Record<string, string | undefined> {
   bookId: string;
@@ -42,7 +43,7 @@ const BookPage: React.FC = () => {
       },
       {
         replace: true,
-      },
+      }
     );
 
   const handlePageChange = (page: number, pageSize: number) => {
@@ -54,7 +55,7 @@ const BookPage: React.FC = () => {
       },
       {
         replace: true,
-      },
+      }
     );
   };
 
@@ -87,14 +88,16 @@ const BookPage: React.FC = () => {
           <BookInfoCard book={book} />
           <PriceCard book={book} />
         </Col>
-        <CommentList
-          comments={comments}
-          sort={sort}
-          onSortChange={handleSort}
-          onPageChange={handlePageChange}
-          index={pageIndex}
-          size={pageSize}
-        />
+        <CommentContext.Provider value={{ refresh: getComment }}>
+          <CommentList
+            comments={comments}
+            sort={sort}
+            onSortChange={handleSort}
+            onPageChange={handlePageChange}
+            index={pageIndex}
+            size={pageSize}
+          />
+        </CommentContext.Provider>
       </Row>
     </div>
   );

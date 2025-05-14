@@ -2,6 +2,7 @@ import { Divider, Flex, List, Space, Typography } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import useCommentContext from "../context/comment";
 import { useReplyPost } from "../hook/comment";
 import { Comment } from "../types";
 import UserAvatar from "./avatar";
@@ -23,6 +24,7 @@ const CommentListItem: React.FC<Props> = ({ comment }) => {
   const [messageApi, contextHolder] = useMessage();
   const { bookId } = useParams<Params>();
   const reply = useReplyPost();
+  const { refresh } = useCommentContext();
 
   const time = new Date(comment.createdAt);
   const postTime =
@@ -38,9 +40,12 @@ const CommentListItem: React.FC<Props> = ({ comment }) => {
       reply.mutate(
         { bookId, comment: content, commentId: comment.id.toString() },
         {
-          onSuccess: () => messageApi.success("回复成功"),
+          onSuccess: () => {
+            messageApi.success("回复成功");
+            refresh();
+          },
           onError: () => messageApi.error("回复失败"),
-        },
+        }
       );
     }
   };
