@@ -29,7 +29,7 @@ const OrderListItem: React.FC<Props> = ({ order }) => {
 
   const getTimeString = () => {
     const hours = date.getHours();
-    const minutes = date.getMinutes();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
     const seconds = date.getSeconds().toString().padStart(2, "0");
     const year = date.getFullYear();
     const month = date.getMonth() + 1;

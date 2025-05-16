@@ -30,7 +30,7 @@ const BookInfoCard: React.FC<Props> = ({ book }) => {
           ))}
         </span>
         <Divider type="vertical" className="metadata-divider" />
-        {book.sales} 人购买
+        已售 {book.sales} 本
       </div>
       <Typography.Paragraph
         style={{
