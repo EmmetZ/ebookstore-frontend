@@ -56,6 +56,7 @@ export interface Book {
   price: number;
   sales: number;
   title: string;
+  stock: number;
   tags: Tag[];
 }
 
@@ -87,4 +88,11 @@ export type CommentSort = "createdTime" | "like";
 export interface Order extends Address {
   createdAt: string;
   items: CartItem[];
+}
+
+export interface BookFormValue {
+  title: string;
+  author: string;
+  stock: number;
+  description: string;
 }

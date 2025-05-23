@@ -47,9 +47,10 @@
   color: #999
 }
 
-.cart-book-info {
+.list-book-info {
   font-size: 1.2em;
   font-weight: bold;
+  margin-right: 2em;
 }
 
 .hover-underline:hover {

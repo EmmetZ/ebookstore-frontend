@@ -1,0 +1,60 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Col, Flex, List, Row, Space, Typography } from "antd";
+import React, { useState } from "react";
+import { Link } from "react-router";
+import { Book } from "../types";
+import BookEditDrawer from "./book_edit_drawer";
+
+interface Props {
+  book: Book;
+}
+
+const AdminBookItem: React.FC<Props> = ({ book }) => {
+  const [openEdit, setOpenEdit] = useState(false);
+  return (
+    <>
+      <List.Item>
+        <Row style={{ width: "100%" }} align="middle">
+          <Col span={14}>
+            <Flex align="center">
+              <img
+                src={book.cover}
+                alt={book.title}
+                style={{ width: "8em", marginLeft: "4em" }}
+              />
+              <Space.Compact direction="vertical" style={{ marginLeft: "3em" }}>
+                <Link to={`/book/${book.id}`}>
+                  <Typography.Text className="list-book-info hover-underline">
+                    {book.title}
+                  </Typography.Text>
+                </Link>
+                <Typography.Text style={{ color: "gray" }}>
+                  {book.author}
+                </Typography.Text>
+              </Space.Compact>
+            </Flex>
+          </Col>
+          <Col span={5}>
+            <Typography.Text className="list-book-info">
+              销量: {book.sales}
+            </Typography.Text>
+            <Typography.Text className="list-book-info">
+              库存: {book.stock}
+            </Typography.Text>
+          </Col>
+          <Col span={5}>
+            <Button
+              icon={<EditOutlined />}
+              style={{ marginRight: "0.5em" }}
+              onClick={() => setOpenEdit(!openEdit)}
+            />
+            <Button icon={<DeleteOutlined />} />
+          </Col>
+        </Row>
+      </List.Item>
+      <BookEditDrawer book={book} open={openEdit} setOpen={setOpenEdit} />
+    </>
+  );
+};
+
+export default AdminBookItem;

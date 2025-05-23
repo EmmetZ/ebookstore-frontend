@@ -101,7 +101,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
             />
             <Space.Compact direction="vertical" style={{ marginLeft: "3em" }}>
               <Link to={`/book/${book.id}`}>
-                <Typography.Text className="cart-book-info hover-underline">
+                <Typography.Text className="list-book-info hover-underline">
                   {book.title}
                 </Typography.Text>
               </Link>
@@ -134,7 +134,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
               disabled={count === 1}
             />
           </Space.Compact>
-          <Typography.Text className="cart-book-info">
+          <Typography.Text className="list-book-info">
             ￥{(book.price / 100).toFixed(2)}
           </Typography.Text>
         </Col>
