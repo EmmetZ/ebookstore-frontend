@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import { User } from "../types";
 import NavbarAvatar from "./navbar_avatar";
 
-type Tab = "home" | "cart" | "order" | "rank" | "";
+type Tab = "home" | "cart" | "order" | "rank" | "admin" | "";
 
 interface NavBarProps {
   user: User;
@@ -20,16 +20,24 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
   };
 
   useEffect(() => {
-    if (loc.pathname === "/") {
-      setCurrent("home");
-    } else if (loc.pathname === "/cart") {
-      setCurrent("cart");
-    } else if (loc.pathname === "/order") {
-      setCurrent("order");
-    } else if (loc.pathname === "/rank") {
-      setCurrent("rank");
-    } else {
-      setCurrent("");
+    switch (loc.pathname) {
+      case "/":
+        setCurrent("home");
+        break;
+      case "/cart":
+        setCurrent("cart");
+        break;
+      case "/order":
+        setCurrent("order");
+        break;
+      case "/rank":
+        setCurrent("rank");
+        break;
+      case "/admin":
+        setCurrent("admin");
+        break;
+      default:
+        setCurrent("");
     }
   }, [loc.pathname]);
 
@@ -55,6 +63,19 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       onClick: () => navigate("/rank"),
     },
   ];
+
+  const adminItems: MenuProps["items"] = [
+    {
+      key: "home",
+      label: "首页",
+      onClick: () => navigate("/"),
+    },
+    {
+      key: "admin",
+      label: "管理",
+      onClick: () => navigate("/admin"),
+    },
+  ];
   return (
     <Flex style={{ justifyContent: "space-between" }}>
       <Space style={{ flexGrow: 1 }}>
@@ -68,7 +89,7 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
           onClick={onClick}
           selectedKeys={[current]}
           mode="horizontal"
-          items={items}
+          items={user.isAdmin ? adminItems : items}
           style={{ paddingLeft: "20px" }}
         />
       </Space>

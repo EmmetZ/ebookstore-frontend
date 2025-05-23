@@ -11,6 +11,10 @@ export const useLogin = (messageApi: MessageInstance) => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: async (resp) => {
+      if (resp.data?.isAdmin) {
+        await handleResponse(resp, messageApi, () => navigate("/admin"));
+        return;
+      }
       await handleResponse(resp, messageApi, () => navigate("/"));
     },
     onError: async (error) => {

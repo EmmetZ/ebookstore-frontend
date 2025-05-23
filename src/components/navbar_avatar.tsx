@@ -39,7 +39,7 @@ const NavbarAvatar: React.FC<AvatarProps> = ({ user }) => {
   const items: MenuProps["items"] = [
     {
       key: "nickname",
-      label: `昵称: ${user.nickname ?? "未设置"}`,
+      label: `${user.isAdmin ? "管理员" : "昵称"}: ${user.nickname ?? "未设置"}`,
       icon: <SmileOutlined />,
     },
     {

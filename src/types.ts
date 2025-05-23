@@ -15,6 +15,7 @@ export interface User {
   balance: number;
   avatar: string | null;
   introduction: string | null;
+  isAdmin: boolean;
 }
 
 export interface IntroFormValue {

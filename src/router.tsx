@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
+import AdminPage from "./page/admin";
 import BookPage from "./page/book";
 import CartPage from "./page/cart";
 import CheckoutPage from "./page/checkout"; // Add this import
@@ -38,6 +39,7 @@ const Router: React.FC = () => {
           <Route path="profile/:userId" element={<ProfilePage />} />
           <Route path="book/:bookId" element={<BookPage />} />
           <Route path="rank" element={<RankPage />} />
+          <Route path="admin" element={<AdminPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFound />} />

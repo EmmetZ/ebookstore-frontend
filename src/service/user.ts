@@ -9,7 +9,7 @@ import {
 import { del, get, post, put } from "./client";
 
 export const login = (body: LoginFormValue) =>
-  post<Response<null>>("/login", body);
+  post<Response<null | { isAdmin: string }>>("/login", body);
 
 export const logout = () => put<Response<null>>("/logout");
 
