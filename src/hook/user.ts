@@ -27,9 +27,12 @@ export const useLogin = (messageApi: MessageInstance) => {
 
 export const useLogout = (messageApi: MessageInstance) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: logout,
     onSuccess: async (resp) => {
+      queryClient.clear();
       await handleResponse(resp, messageApi, () => navigate("/login"));
     },
     onError: async (error) => {
