@@ -15,7 +15,7 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
     <>
       <List.Item>
         <Row style={{ width: "100%" }} align="middle">
-          <Col span={14}>
+          <Col span={12}>
             <Flex align="center">
               <img
                 src={book.cover}
@@ -34,12 +34,15 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
               </Space.Compact>
             </Flex>
           </Col>
-          <Col span={5}>
+          <Col span={7}>
             <Typography.Text className="list-book-info">
               销量: {book.sales}
             </Typography.Text>
             <Typography.Text className="list-book-info">
               库存: {book.stock}
+            </Typography.Text>
+            <Typography.Text className="list-book-info">
+              价格：￥{(book.price / 100).toFixed(2)}
             </Typography.Text>
           </Col>
           <Col span={5}>

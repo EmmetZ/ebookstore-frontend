@@ -94,5 +94,6 @@ export interface BookFormValue {
   title: string;
   author: string;
   stock: number;
+  price: number;
   description: string;
 }
