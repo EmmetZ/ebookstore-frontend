@@ -5,7 +5,7 @@ import BookPage from "./page/book";
 import CartPage from "./page/cart";
 import CheckoutPage from "./page/checkout"; // Add this import
 import HomePage from "./page/home";
-import DefaultLayout from "./page/layout";
+import DefaultLayout, { AdminLayout } from "./page/layout";
 import LoginPage from "./page/login";
 import NotFound from "./page/notfound";
 import OrderPage from "./page/order";
@@ -39,7 +39,13 @@ const Router: React.FC = () => {
           <Route path="profile/:userId" element={<ProfilePage />} />
           <Route path="book/:bookId" element={<BookPage />} />
           <Route path="rank" element={<RankPage />} />
-          <Route path="admin" element={<AdminPage />} />
+          <Route
+            path="admin"
+            element={<AdminLayout />}
+            errorElement={<div>error</div>}
+          >
+            <Route index path="book" element={<AdminPage />} />
+          </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFound />} />

@@ -1,10 +1,10 @@
 import { Flex, Menu, MenuProps, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { User } from "../types";
+import { Role, User } from "../types";
 import NavbarAvatar from "./navbar_avatar";
 
-type Tab = "home" | "cart" | "order" | "rank" | "admin" | "";
+type Tab = "home" | "cart" | "order" | "rank" | "admin/book" | "";
 
 interface NavBarProps {
   user: User;
@@ -33,8 +33,8 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       case "/rank":
         setCurrent("rank");
         break;
-      case "/admin":
-        setCurrent("admin");
+      case "/admin/book":
+        setCurrent("admin/book");
         break;
       default:
         setCurrent("");
@@ -71,9 +71,9 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       onClick: () => navigate("/"),
     },
     {
-      key: "admin",
+      key: "admin/book",
       label: "管理",
-      onClick: () => navigate("/admin"),
+      onClick: () => navigate("/admin/book"),
     },
   ];
   return (
@@ -89,7 +89,7 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
           onClick={onClick}
           selectedKeys={[current]}
           mode="horizontal"
-          items={user.isAdmin ? adminItems : items}
+          items={user.role === Role.ADMIN ? adminItems : items}
           style={{ paddingLeft: "20px" }}
         />
       </Space>

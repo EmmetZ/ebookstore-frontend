@@ -4,9 +4,9 @@ import useMessage from "antd/es/message/useMessage";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import NavBar from "../components/navbar";
-import { UserContext } from "../context/user";
+import useUserContext, { UserContext } from "../context/user";
 import { useMe } from "../hook/user";
-import { User } from "../types";
+import { Role, User } from "../types";
 
 interface LayoutProps {
   children: ReactNode;
@@ -76,6 +76,36 @@ const DefaultLayout: React.FC = () => {
         <div>电子书城 SE2321 2025</div>
       </Footer>
     </Layout>
+  );
+};
+
+export const AdminLayout: React.FC = () => {
+  const { user } = useUserContext();
+  const [messageApi, contextHolder] = useMessage();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const check = async () => {
+      if (!user) {
+        await messageApi.error("请先登录", 1);
+        navigate("/login");
+        return;
+      }
+      if (user.role !== Role.ADMIN) {
+        await messageApi.error("没有权限访问", 1);
+        navigate("/");
+        return;
+      }
+      navigate("/admin/book");
+    };
+    check();
+  }, [user]);
+
+  return (
+    <>
+      {contextHolder}
+      <Outlet />
+    </>
   );
 };
 

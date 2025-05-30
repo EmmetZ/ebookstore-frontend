@@ -10,7 +10,7 @@ import useMessage from "antd/es/message/useMessage";
 import React from "react";
 import { useNavigate } from "react-router";
 import { useLogout } from "../hook/user";
-import { User } from "../types";
+import { Role, User } from "../types";
 import UserAvatar from "./avatar";
 
 interface AvatarProps {
@@ -39,7 +39,7 @@ const NavbarAvatar: React.FC<AvatarProps> = ({ user }) => {
   const items: MenuProps["items"] = [
     {
       key: "nickname",
-      label: `${user.isAdmin ? "管理员" : "昵称"}: ${user.nickname ?? "未设置"}`,
+      label: `${user.role === Role.ADMIN ? "管理员" : "昵称"}: ${user.nickname ?? "未设置"}`,
       icon: <SmileOutlined />,
     },
     {

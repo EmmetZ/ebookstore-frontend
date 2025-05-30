@@ -15,7 +15,7 @@ export interface User {
   balance: number;
   avatar: string | null;
   introduction: string | null;
-  isAdmin: boolean;
+  role: Role;
 }
 
 export interface IntroFormValue {
@@ -96,4 +96,9 @@ export interface BookFormValue {
   stock: number;
   price: number;
   description: string;
+}
+
+export enum Role {
+  USER = "USER",
+  ADMIN = "ADMIN",
 }

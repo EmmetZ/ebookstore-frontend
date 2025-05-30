@@ -4,12 +4,13 @@ import {
   LoginFormValue,
   PasswordFormValue,
   Response,
+  Role,
   User,
 } from "../types";
 import { del, get, post, put } from "./client";
 
 export const login = (body: LoginFormValue) =>
-  post<Response<null | { isAdmin: string }>>("/login", body);
+  post<Response<{ role: Role }>>("/login", body);
 
 export const logout = () => put<Response<null>>("/logout");
 
