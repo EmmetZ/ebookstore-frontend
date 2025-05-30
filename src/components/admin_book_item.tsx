@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Button, Col, Flex, List, Row, Space, Typography } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router";
@@ -13,14 +13,14 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
   const [openEdit, setOpenEdit] = useState(false);
   return (
     <>
-      <List.Item>
+      <List.Item style={{ margin: "0 auto" }}>
         <Row style={{ width: "100%" }} align="middle">
           <Col span={12}>
             <Flex align="center">
               <img
                 src={book.cover}
                 alt={book.title}
-                style={{ width: "8em", marginLeft: "4em" }}
+                style={{ width: "6em", marginLeft: "4em" }}
               />
               <Space.Compact direction="vertical" style={{ marginLeft: "3em" }}>
                 <Link to={`/book/${book.id}`}>
@@ -34,7 +34,7 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
               </Space.Compact>
             </Flex>
           </Col>
-          <Col span={7}>
+          <Col span={10}>
             <Typography.Text className="list-book-info">
               销量: {book.sales}
             </Typography.Text>
@@ -45,13 +45,12 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
               价格：￥{(book.price / 100).toFixed(2)}
             </Typography.Text>
           </Col>
-          <Col span={5}>
+          <Col span={2}>
             <Button
               icon={<EditOutlined />}
               style={{ marginRight: "0.5em" }}
               onClick={() => setOpenEdit(!openEdit)}
             />
-            <Button icon={<DeleteOutlined />} />
           </Col>
         </Row>
       </List.Item>

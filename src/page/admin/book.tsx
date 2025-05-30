@@ -1,11 +1,11 @@
-import { Pagination } from "antd";
+import { List, Pagination, Typography } from "antd";
 import React from "react";
 import { useSearchParams } from "react-router";
-import BookGrid from "../components/book_grid";
-import SearchBar from "../components/search_bar";
-import { useBooks } from "../hook/book";
+import AdminBookItem from "../../components/admin_book_item";
+import SearchBar from "../../components/search_bar";
+import { useBooks } from "../../hook/book";
 
-const HomePage: React.FC = () => {
+const AdminPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const pageIndex =
@@ -27,9 +27,15 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
+      <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
+        图书列表
+      </Typography.Title>
       <SearchBar pageSize={pageSize} />
-      <BookGrid books={data.items} />
+      <List
+        dataSource={data.items}
+        renderItem={(book) => <AdminBookItem key={book.id} book={book} />}
+      />
       <Pagination
         align="center"
         showSizeChanger
@@ -45,8 +51,8 @@ const HomePage: React.FC = () => {
           });
         }}
       />
-    </div>
+    </>
   );
 };
 
-export default HomePage;
+export default AdminPage;

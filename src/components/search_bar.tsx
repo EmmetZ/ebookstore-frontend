@@ -8,7 +8,11 @@ import SearchPanel from "./search_panel";
 
 const { Search } = Input;
 
-const SearchBar: React.FC = () => {
+interface Props {
+  pageSize: number;
+}
+
+const SearchBar: React.FC<Props> = ({ pageSize }) => {
   const [activeKey, setActiveKey] = React.useState<string[]>([]);
   const { data: tags } = useTag();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,8 +53,9 @@ const SearchBar: React.FC = () => {
     >
       <div
         style={{
-          minWidth: "40%",
-          maxWidth: "100%",
+          width: "40%",
+          minWidth: "300px",
+          position: "relative",
         }}
       >
         <TagContext.Provider value={{ selectedTag, setTag: handleClick }}>
@@ -68,9 +73,9 @@ const SearchBar: React.FC = () => {
             onSearch={(value) => {
               setSearchParams({
                 keyword: value,
-                size: "10",
                 page: "0",
                 tag: selectedTag,
+                pageSize: pageSize.toString(),
               });
             }}
           />

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
-import AdminPage from "./page/admin";
+import AdminPage from "./page/admin/book";
 import BookPage from "./page/book";
 import CartPage from "./page/cart";
-import CheckoutPage from "./page/checkout"; // Add this import
+import CheckoutPage from "./page/checkout"
 import HomePage from "./page/home";
 import DefaultLayout, { AdminLayout } from "./page/layout";
 import LoginPage from "./page/login";
