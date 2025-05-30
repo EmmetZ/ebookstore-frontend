@@ -87,7 +87,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
     >
       {contextHolder}
       <Row style={{ width: "100%" }} align="middle">
-        <Col span={19}>
+        <Col span={18}>
           <Flex align="center">
             <Checkbox
               checked={isSelected}
@@ -111,7 +111,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
             </Space.Compact>
           </Flex>
         </Col>
-        <Col span={4}>
+        <Col span={5}>
           <Space.Compact style={{ marginRight: "3em" }}>
             <Button
               icon={<PlusOutlined />}
