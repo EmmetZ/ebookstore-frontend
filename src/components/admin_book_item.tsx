@@ -2,6 +2,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { Button, Col, Flex, List, Row, Space, Typography } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import { BOOK_COVER_URL } from "../service/common";
 import { Book } from "../types";
 import BookEditDrawer from "./book_edit_drawer";
 
@@ -18,7 +19,7 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
           <Col span={12}>
             <Flex align="center">
               <img
-                src={book.cover}
+                src={`${BOOK_COVER_URL}/${book.cover}`}
                 alt={book.title}
                 style={{ width: "6em", marginLeft: "4em" }}
               />

@@ -5,10 +5,11 @@ import { useNavigate, useParams, useSearchParams } from "react-router";
 import BookInfoCard from "../components/book_info_card";
 import CommentList from "../components/comment_list";
 import PriceCard from "../components/price_card";
+import { CommentContext } from "../context/comment";
 import { useBook } from "../hook/book";
 import getComments from "../service/comment";
+import { BOOK_COVER_URL } from "../service/common";
 import { Comment, CommentSort, ListResponse } from "../types";
-import { CommentContext } from "../context/comment";
 
 interface Params extends Record<string, string | undefined> {
   bookId: string;
@@ -43,7 +44,7 @@ const BookPage: React.FC = () => {
       },
       {
         replace: true,
-      }
+      },
     );
 
   const handlePageChange = (page: number, pageSize: number) => {
@@ -55,7 +56,7 @@ const BookPage: React.FC = () => {
       },
       {
         replace: true,
-      }
+      },
     );
   };
 
@@ -82,7 +83,7 @@ const BookPage: React.FC = () => {
       </Button>
       <Row gutter={[24, 16]}>
         <Col span={8}>
-          <Image src={book.cover} preview={false} />
+          <Image src={`${BOOK_COVER_URL}/${book.cover}`} preview={false} />
         </Col>
         <Col span={16}>
           <BookInfoCard book={book} />

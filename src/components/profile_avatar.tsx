@@ -35,11 +35,11 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
       //   console.log(info.file, info.fileList);
       // }
       if (status === "done") {
+        closeModal();
         await messageApi.success(
           `${info.file.name} file uploaded successfully.`,
           1,
         );
-        closeModal();
         const me = await getMe();
         if (me) {
           setUser(me);
@@ -104,6 +104,7 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
               rotationSlider
               modalOk="确定"
               modalCancel="取消"
+              fillColor="black"
             >
               <Dragger {...props}>
                 <p className="ant-upload-drag-icon">

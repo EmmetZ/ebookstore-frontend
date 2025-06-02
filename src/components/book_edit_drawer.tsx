@@ -1,4 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Button,
   Col,
@@ -13,10 +14,12 @@ import {
   Upload,
   UploadProps,
 } from "antd";
+import ImgCrop from "antd-img-crop";
 import useMessage from "antd/es/message/useMessage";
 import React, { Dispatch, useState } from "react";
-import { Book, BookFormValue } from "../types";
 import { useBookEdit } from "../hook/book";
+import { BOOK_COVER_URL, PREFIX } from "../service/common";
+import { Book, BookFormValue } from "../types";
 
 interface Props {
   book: Book;
@@ -29,26 +32,27 @@ const BookEditDrawer: React.FC<Props> = ({ book, open, setOpen }) => {
   const [save, setSave] = useState(false);
   const [form] = Form.useForm();
   const mutation = useBookEdit();
+  const queryClient = useQueryClient();
 
   const props: UploadProps = {
     name: "file",
     accept: "image/*",
     multiple: false,
-    // showUploadList: false,
+    showUploadList: false,
     withCredentials: true,
-    // TODO: add upload url
-    // action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+    action: `${PREFIX}/book/${book.id}/cover`,
     async onChange(info) {
       const { status } = info.file;
       // if (status !== "uploading") {
       //   console.log(info.file, info.fileList);
       // }
       if (status === "done") {
+        setOpen(false);
         await messageApi.success(
           `${info.file.name} file uploaded successfully.`,
-          1
+          1,
         );
-        // TODO: refresh book info
+        queryClient.invalidateQueries({ queryKey: ["books"] });
       } else if (status === "error") {
         await messageApi.error(`${info.file.name} file upload failed.`);
       }
@@ -87,9 +91,20 @@ const BookEditDrawer: React.FC<Props> = ({ book, open, setOpen }) => {
         title={`编辑: 《${book.title}》`}
         extra={
           <Space>
-            <Upload {...props}>
-              <Button icon={<UploadOutlined />}>上传封面</Button>
-            </Upload>
+            <ImgCrop
+              showGrid
+              showReset
+              rotationSlider
+              modalOk="确定"
+              modalCancel="取消"
+              minZoom={0.5}
+              quality={1}
+              aspect={1}
+            >
+              <Upload {...props}>
+                <Button icon={<UploadOutlined />}>上传封面</Button>
+              </Upload>
+            </ImgCrop>
             <Button
               type="primary"
               disabled={!save}
@@ -123,11 +138,12 @@ const BookEditDrawer: React.FC<Props> = ({ book, open, setOpen }) => {
                   setOpen(false);
                   setSave(false);
                   messageApi.success(resp.message);
+                  queryClient.invalidateQueries({ queryKey: ["books"] });
                 },
                 onError: (error) => {
                   messageApi.error(`图书信息修改失败: ${error.message}`);
                 },
-              }
+              },
             );
           }}
         >
@@ -136,7 +152,7 @@ const BookEditDrawer: React.FC<Props> = ({ book, open, setOpen }) => {
               <Flex justify="center" align="center" style={{ height: "100%" }}>
                 {book.cover ? (
                   <img
-                    src={book.cover}
+                    src={`${BOOK_COVER_URL}/${book.cover}`}
                     alt={book.title}
                     style={{ width: "14em" }}
                   />

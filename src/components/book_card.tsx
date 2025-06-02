@@ -2,6 +2,7 @@ import { Card, Flex, Typography } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
 import { Book } from "../types";
+import { BOOK_COVER_URL } from "../service/common";
 
 interface Props {
   book: Book;
@@ -12,7 +13,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
   return (
     <Card
       hoverable
-      cover={<img src={book.cover} alt={book.title} />}
+      cover={<img src={`${BOOK_COVER_URL}/${book.cover}`} alt={book.title} />}
       onClick={() => navigate(`/book/${book.id}`)}
     >
       <Card.Meta
