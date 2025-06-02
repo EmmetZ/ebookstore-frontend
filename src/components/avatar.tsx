@@ -12,13 +12,19 @@ const UserAvatar: React.FC<AvatarProps> = ({ src, size }) => {
   return (
     <>
       {src ? (
-        <Avatar src={`${AVATAR_URL}/${src}`} size={size} />
+        <Avatar
+          src={`${AVATAR_URL}/${src}`}
+          size={size}
+          style={{
+            border: "1px solid #e1e1e1",
+          }}
+        />
       ) : (
         <Avatar
           icon={<UserOutlined style={{ color: "black" }} />}
           style={{
             backgroundColor: "white",
-            border: "1px solid gray",
+            border: "1px solid #e1e1e1",
           }}
           size={size}
         />
