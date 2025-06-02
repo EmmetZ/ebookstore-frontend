@@ -1,9 +1,9 @@
 import { DatePicker, Empty, Flex, List, Typography } from "antd";
-import React, { useState, useEffect } from "react";
-import { Order } from "../types";
-import OrderListItem from "./order_item";
 import { RangePickerProps } from "antd/es/date-picker";
 import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
+import { Order } from "../types";
+import OrderListItem from "./order_item";
 
 interface Props {
   orders: Order[];
@@ -46,19 +46,21 @@ const OrderList: React.FC<Props> = ({ orders }) => {
         margin: " 0 auto",
       }}
     >
-      <Flex justify="space-between" align="center">
+      <Flex justify="space-between" align="center" >
         <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
           我的订单
         </Typography.Title>
-        <div>
-          <Typography.Text>筛选订单:</Typography.Text>
-          <RangePicker
-            onChange={handleDateChange}
-            placeholder={["开始日期", "结束日期"]}
-            allowClear
-            style={{ marginLeft: "10px" }}
-          />
-        </div>
+        {orders.length !== 0 && (
+          <div>
+            <Typography.Text>筛选订单:</Typography.Text>
+            <RangePicker
+              onChange={handleDateChange}
+              placeholder={["开始日期", "结束日期"]}
+              allowClear
+              style={{ marginLeft: "10px" }}
+            />
+          </div>
+        )}
       </Flex>
       <List
         dataSource={filteredOrders}

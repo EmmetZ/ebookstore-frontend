@@ -9,6 +9,7 @@ import { getMe } from "../service/user";
 import { OtherUser, User } from "../types";
 import isUser from "../utils/user";
 import UserAvatar from "./avatar";
+import ImgCrop from "antd-img-crop";
 
 interface Props {
   user: User | OtherUser;
@@ -97,15 +98,23 @@ const ProfileAvatar: React.FC<Props> = ({ user }) => {
               </Button>,
             ]}
           >
-            <Dragger {...props}>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">点击或拖拽文件到这里上传</p>
-              <p className="ant-upload-hint">
-                支持 .jpg .png 格式的图片文件，图片大小不超过10M
-              </p>
-            </Dragger>
+            <ImgCrop
+              showGrid
+              showReset
+              rotationSlider
+              modalOk="确定"
+              modalCancel="取消"
+            >
+              <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">点击或拖拽文件到这里上传</p>
+                <p className="ant-upload-hint">
+                  支持 .jpg .png 格式的图片文件，图片大小不超过10M
+                </p>
+              </Dragger>
+            </ImgCrop>
           </Modal>
         </>
       )}

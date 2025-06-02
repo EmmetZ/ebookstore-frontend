@@ -55,14 +55,16 @@ const CartPage: React.FC = () => {
       <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
         购物车
       </Typography.Title>
-      <Space style={{ margin: "0 0 12px 12px" }}>
-        <Checkbox
-          checked={isSelectAll}
-          onChange={handleSelectAll}
-          indeterminate={indeterminate}
-        />
-        <Typography.Text>全选</Typography.Text>
-      </Space>
+      {cart.length !== 0 && (
+        <Space style={{ margin: "0 0 12px 12px" }}>
+          <Checkbox
+            checked={isSelectAll}
+            onChange={handleSelectAll}
+            indeterminate={indeterminate}
+          />
+          <Typography.Text>全选</Typography.Text>
+        </Space>
+      )}
       <CartContext.Provider
         value={{ sum, setSum, selectedList, setSelectedList }}
       >

@@ -1,6 +1,6 @@
 import React from "react";
 import { CartItem } from "../types";
-import { List } from "antd";
+import { Empty, List } from "antd";
 import CartListItem from "./cart_item";
 
 interface Props {
@@ -12,6 +12,14 @@ const CartList: React.FC<Props> = ({ cart }) => {
     <List
       dataSource={cart}
       renderItem={(item) => <CartListItem item={item} />}
+      locale={{
+        emptyText: (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="购物车是空的哦~"
+          />
+        ),
+      }}
     />
   );
 };
