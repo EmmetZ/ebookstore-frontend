@@ -55,7 +55,7 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
           </Col>
         </Row>
       </List.Item>
-      <BookEditDrawer book={book} open={openEdit} setOpen={setOpenEdit} />
+      <BookEditDrawer type="edit" book={book} open={openEdit} setOpen={setOpenEdit} />
     </>
   );
 };

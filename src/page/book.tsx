@@ -79,7 +79,7 @@ const BookPage: React.FC = () => {
         icon={<ArrowLeftOutlined />}
         onClick={() => navigate(-1)}
       >
-        返回主页面
+        返回
       </Button>
       <Row gutter={[24, 16]}>
         <Col span={8}>

@@ -1,9 +1,12 @@
-import { List, Pagination, Typography } from "antd";
-import React from "react";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import { FloatButton, List, Pagination, Tooltip, Typography } from "antd";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router";
 import AdminBookItem from "../../components/admin_book_item";
 import SearchBar from "../../components/search_bar";
 import { useBooks } from "../../hook/book";
+import BookEditDrawer from "../../components/book_edit_drawer";
+import book from "../book";
 
 const AdminPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +24,7 @@ const AdminPage: React.FC = () => {
     pageIndex,
     pageSize,
   );
+  const [open, setOpenEdit] = useState(false);
 
   if (isPending || error) {
     return null;
@@ -51,6 +55,15 @@ const AdminPage: React.FC = () => {
           });
         }}
       />
+      <Tooltip title="添加图书">
+        <FloatButton
+          onClick={() => setOpenEdit(true)}
+          icon={<PlusCircleOutlined />}
+          type="primary"
+          style={{ insetInlineEnd: 48 }}
+        />
+      </Tooltip>
+      <BookEditDrawer type="add" open={open} setOpen={setOpenEdit} />
     </>
   );
 };

@@ -66,13 +66,8 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
 
   const adminItems: MenuProps["items"] = [
     {
-      key: "home",
-      label: "首页",
-      onClick: () => navigate("/"),
-    },
-    {
       key: "admin/book",
-      label: "管理",
+      label: "书籍",
       onClick: () => navigate("/admin/book"),
     },
   ];
