@@ -10,7 +10,7 @@ import {
 import { del, get, post, put } from "./client";
 
 export const login = (body: LoginFormValue) =>
-  post<Response<{ role: Role }>>("/login", body);
+  post<Response<null | { role: Role }>>("/login", body);
 
 export const logout = () => put<Response<null>>("/logout");
 

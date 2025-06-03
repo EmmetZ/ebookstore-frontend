@@ -11,7 +11,7 @@ export const useLogin = (messageApi: MessageInstance) => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: async (resp) => {
-      if (resp.data.role === Role.ADMIN) {
+      if (resp.data?.role === Role.ADMIN) {
         await handleResponse(resp, messageApi, () => navigate("/admin"));
         return;
       }
