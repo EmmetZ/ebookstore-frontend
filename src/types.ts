@@ -102,3 +102,12 @@ export enum Role {
   USER = "USER",
   ADMIN = "ADMIN",
 }
+
+export interface TmpCover {
+  id: number;
+  fileName: string;
+}
+
+export interface BookAdditionFormValue extends BookFormValue {
+  coverId: number;
+}

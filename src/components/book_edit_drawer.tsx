@@ -14,7 +14,7 @@ import ImgCrop from "antd-img-crop";
 import useMessage from "antd/es/message/useMessage";
 import React, { Dispatch, useState } from "react";
 import { PREFIX } from "../service/common";
-import { Book } from "../types";
+import { Book, TmpCover } from "../types";
 import BookForm from "./book_form";
 
 interface Props {
@@ -29,6 +29,7 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
   const [save, setSave] = useState(false);
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
+  const [tmpCover, setTmpCover] = useState<TmpCover>();
 
   if (type === "edit" && !book) {
     return;
@@ -43,16 +44,21 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
     action: `${PREFIX}/book/${book ? book.id : 0}/cover`,
     async onChange(info) {
       const { status } = info.file;
-      // if (status !== "uploading") {
-      //   console.log(info.file, info.fileList);
-      // }
       if (status === "done") {
-        setOpen(false);
-        await messageApi.success(
-          `${info.file.name} file uploaded successfully.`,
-          1,
-        );
-        queryClient.invalidateQueries({ queryKey: ["books"] });
+        if (book) {
+          setOpen(false);
+          await messageApi.success(
+            `${info.file.name} file uploaded successfully.`,
+            1,
+          );
+          queryClient.invalidateQueries({ queryKey: ["books"] });
+        } else {
+          setTmpCover({
+            id: info.file.response.data.id,
+            fileName: info.file.response.data.fileName,
+          });
+          messageApi.success(info.file.response.message);
+        }
       } else if (status === "error") {
         await messageApi.error(`${info.file.name} file upload failed.`);
       }
@@ -118,7 +124,13 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
         }
         destroyOnClose
       >
-        <BookForm book={book} form={form} setOpen={setOpen} setSave={setSave} />
+        <BookForm
+          form={form}
+          book={book}
+          cover={tmpCover}
+          setOpen={setOpen}
+          setSave={setSave}
+        />
         {type === "edit" && (
           <Flex justify="end">
             <Popconfirm title="确定执行此操作吗？" onConfirm={hadleDelete}>

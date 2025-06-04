@@ -1,22 +1,25 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Col, Empty, Flex, Form, Input, InputNumber, Row } from "antd";
 import useMessage from "antd/es/message/useMessage";
-import React, { Dispatch } from "react";
-import { useBookEdit } from "../hook/book";
+import React, { Dispatch, useEffect, useState } from "react";
+import { useBookAddition, useBookEdit } from "../hook/book";
 import { BOOK_COVER_URL } from "../service/common";
-import { Book, BookFormValue } from "../types";
+import { Book, BookFormValue, TmpCover } from "../types";
 
 interface Props {
   form: any;
   book?: Book;
+  cover?: TmpCover;
   setOpen: Dispatch<boolean>;
   setSave: Dispatch<boolean>;
 }
 
-const BookForm: React.FC<Props> = ({ form, book, setOpen, setSave }) => {
+const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
   const edit = useBookEdit();
+  const add = useBookAddition();
   const [messageApi, contextHolder] = useMessage();
   const queryClient = useQueryClient();
+  const [coverUrl, setCoverUrl] = useState<string | undefined>();
 
   const handleChange = (_: unknown, values: BookFormValue) => {
     let hasChanges: boolean;
@@ -38,6 +41,51 @@ const BookForm: React.FC<Props> = ({ form, book, setOpen, setSave }) => {
     setSave(hasChanges);
   };
 
+  const handleEditBook = (book: Book, values: BookFormValue) => {
+    edit.mutate(
+      { id: book.id, body: values },
+      {
+        onSuccess: (resp) => {
+          setOpen(false);
+          setSave(false);
+          messageApi.success(resp.message);
+          queryClient.invalidateQueries({ queryKey: ["books"] });
+        },
+        onError: (error) => {
+          messageApi.error(error.message);
+        },
+      },
+    );
+  };
+
+  const handleAddBook = (values: BookFormValue) => {
+    add.mutate(
+      {
+        coverId: cover ? cover.id : 0,
+        ...values,
+      },
+      {
+        onSuccess: (resp) => {
+          setOpen(false);
+          setSave(false);
+          messageApi.success(resp.message);
+          queryClient.invalidateQueries({ queryKey: ["books"] });
+        },
+        onError: (error) => {
+          messageApi.error(error.message);
+        },
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (book && book.cover) {
+      setCoverUrl(`${BOOK_COVER_URL}/${book.cover}`);
+    } else if (cover) {
+      setCoverUrl(`${BOOK_COVER_URL}/${cover.fileName}`);
+    }
+  }, [book, cover]);
+
   return (
     <>
       {contextHolder}
@@ -48,35 +96,19 @@ const BookForm: React.FC<Props> = ({ form, book, setOpen, setSave }) => {
         onFinish={(values: BookFormValue) => {
           values.price = Math.round(values.price * 100);
           if (book) {
-            edit.mutate(
-              { id: book.id, body: values },
-              {
-                onSuccess: (resp) => {
-                  setOpen(false);
-                  setSave(false);
-                  messageApi.success(resp.message);
-                  queryClient.invalidateQueries({ queryKey: ["books"] });
-                },
-                onError: (error) => {
-                  messageApi.error(`图书信息修改失败: ${error.message}`);
-                },
-              },
-            );
+            handleEditBook(book, values);
           } else {
-            console.log("Add book", values);
-            setOpen(false);
-            setSave(false);
-            messageApi.success(`添加书籍：${values.title} 成功！`);
+            handleAddBook(values);
           }
         }}
       >
         <Row gutter={16}>
           <Col span={10}>
             <Flex justify="center" align="center" style={{ height: "100%" }}>
-              {book && book.cover ? (
+              {coverUrl ? (
                 <img
-                  src={`${BOOK_COVER_URL}/${book.cover}`}
-                  alt={book.title}
+                  src={coverUrl}
+                  alt={book ? book.title : "cover"}
                   style={{ width: "14em" }}
                 />
               ) : (
@@ -109,7 +141,7 @@ const BookForm: React.FC<Props> = ({ form, book, setOpen, setSave }) => {
                 <Form.Item
                   name="stock"
                   label="库存"
-                  initialValue={book?.stock}
+                  initialValue={book ? book.stock : 0}
                   rules={[{ required: true }]}
                 >
                   <InputNumber
@@ -144,7 +176,7 @@ const BookForm: React.FC<Props> = ({ form, book, setOpen, setSave }) => {
             <Form.Item
               name="description"
               label="简介"
-              initialValue={book?.description}
+              initialValue={book ? book.description : ""}
               rules={[
                 {
                   required: true,

@@ -1,6 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { put } from "../service/client";
-import { Book, BookFormValue, ListResponse, Response } from "../types";
+import { post, put } from "../service/client";
+import {
+  Book,
+  BookAdditionFormValue as BookAddFormValue,
+  BookFormValue,
+  ListResponse,
+  Response,
+} from "../types";
 import { useData } from "./data";
 
 export const useTag = () => {
@@ -37,6 +43,15 @@ export const useBookEdit = () => {
     mutationFn: ({ id, body }) => put<Response<null>>(`/book/${id}`, body),
     onError: (error) => {
       console.error("修改图书信息失败:", error);
+    },
+  });
+};
+
+export const useBookAddition = () => {
+  return useMutation<Response<null>, Error, BookAddFormValue>({
+    mutationFn: (body) => post<Response<null>>("/book", body),
+    onError: (error) => {
+      console.error("添加图书失败:", error);
     },
   });
 };
