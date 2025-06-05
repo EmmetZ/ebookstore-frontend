@@ -2,9 +2,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MessageInstance } from "antd/es/message/interface";
 import { useNavigate } from "react-router";
 import { login, logout, updateIntro } from "../service/user";
-import { IntroFormValue, OtherUser, Response, Role, User } from "../types";
+import {
+  IntroFormValue,
+  OtherUser,
+  RegisterBody,
+  Response,
+  Role, User,
+} from "../types";
 import handleResponse from "../utils/message";
 import { useData } from "./data";
+import { post } from "../service/client";
 
 export const useLogin = (messageApi: MessageInstance) => {
   const navigate = useNavigate();
@@ -78,4 +85,10 @@ export const useUpdateIntro = () => {
 
 export const useUser = (id: string) => {
   return useData<OtherUser>(["user", id], `/user/${id}`);
+};
+
+export const useRegister = () => {
+  return useMutation<Response<null>, Error, RegisterBody>({
+    mutationFn: (body) => post<Response<null>>("/register", body),
+  });
 };

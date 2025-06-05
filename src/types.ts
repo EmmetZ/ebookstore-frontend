@@ -90,6 +90,16 @@ export interface Order extends Address {
   items: CartItem[];
 }
 
+export interface RegisterBody {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterFormValue extends RegisterBody {
+  confirm: string;
+}
+
 export interface BookFormValue {
   title: string;
   author: string;
