@@ -20,7 +20,7 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <Header className="header">
+      <Header className="header" style={{ flexShrink: 0 }}>
         <div
           style={{ display: "inline-block", cursor: "pointer" }}
           onClick={() => navigate("/")}
@@ -28,8 +28,30 @@ export const LoginLayout: React.FC<LayoutProps> = ({ children }) => {
           Book Store
         </div>
       </Header>
-      <Content>{children}</Content>
-      <Footer style={{ textAlign: "center" }}>
+      <Content
+        style={{
+          position: "relative",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          style={{
+            backgroundImage: "url(/login.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        >
+          {children}
+        </div>
+      </Content>
+      <Footer style={{ textAlign: "center", flexShrink: 0 }}>
         <div>电子书城 SE2321 2025</div>
       </Footer>
     </Layout>
