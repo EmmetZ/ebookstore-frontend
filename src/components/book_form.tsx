@@ -185,14 +185,7 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
             <Form.Item
               name="tags"
               label="标签"
-              initialValue={
-                book
-                  ? book.tags.map((tag) => ({
-                      label: tag.name,
-                      value: tag.name,
-                    }))
-                  : []
-              }
+              initialValue={book ? book.tags.map((tag) => tag.name) : []}
               rules={[{ required: true }]}
             >
               <Select

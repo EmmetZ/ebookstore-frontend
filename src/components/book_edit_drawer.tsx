@@ -92,6 +92,7 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
         onClose={() => {
           setSave(false);
           setOpen(false);
+          setTmpCover(undefined);
           form.resetFields();
         }}
         placement="left"
