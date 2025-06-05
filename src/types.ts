@@ -87,3 +87,13 @@ export interface Order extends Address {
   createdAt: string;
   items: CartItem[];
 }
+
+export interface RegisterBody {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterFormValue extends RegisterBody {
+  confirm: string;
+}

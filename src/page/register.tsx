@@ -4,18 +4,37 @@ import Title from "antd/es/typography/Title";
 import React from "react";
 import { Link } from "react-router";
 import { LoginLayout } from "./layout";
+import { useRegister } from "../hook/user";
+import { useNavigate } from "react-router";
+import useMessage from "antd/es/message/useMessage";
 
 const { useToken } = theme;
 
 const RegisterPage: React.FC = () => {
   const { token } = useToken();
+  const mutate = useRegister();
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = useMessage();
 
   const onFinish = (values: any) => {
-    console.log("Received values:", values);
+    const { username, email, password } = values;
+    mutate.mutate(
+      { username, email, password },
+      {
+        onSuccess: async () => {
+          await messageApi.success("注册成功！", 1);
+          navigate("/login");
+        },
+        onError: (error) => {
+          messageApi.error(`注册失败！${error.message}`);
+        },
+      },
+    );
   };
 
   return (
     <LoginLayout>
+      {contextHolder}
       <div className="loginbox">
         <Flex align="center" vertical>
           <Title level={1}>Book Store</Title>
