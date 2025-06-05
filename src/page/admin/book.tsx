@@ -5,7 +5,8 @@ import { useSearchParams } from "react-router";
 import AdminBookItem from "../../components/admin_book_item";
 import BookEditDrawer from "../../components/book_edit_drawer";
 import SearchBar from "../../components/search_bar";
-import { useBooks } from "../../hook/book";
+import { useBooks, useTag } from "../../hook/book";
+import { TagsContext } from "../../context/tags";
 
 const AdminPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,17 +25,18 @@ const AdminPage: React.FC = () => {
     pageSize,
   );
   const [open, setOpenEdit] = useState(false);
+  const { data: tags } = useTag();
 
-  if (isPending || error) {
+  if (isPending || error || !tags) {
     return null;
   }
 
   return (
-    <>
+    <TagsContext.Provider value={{ tags }}>
       <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
         图书列表
       </Typography.Title>
-      <SearchBar pageSize={pageSize} />
+      <SearchBar pageSize={pageSize} tags={tags} />
       <List
         dataSource={data.items}
         renderItem={(book) => <AdminBookItem key={book.id} book={book} />}
@@ -62,8 +64,12 @@ const AdminPage: React.FC = () => {
           style={{ insetInlineEnd: 48 }}
         />
       </Tooltip>
-      <BookEditDrawer type="add" open={open} setOpen={setOpenEdit} />
-    </>
+      <BookEditDrawer
+        type="add"
+        open={open}
+        setOpen={setOpenEdit}
+      />
+    </TagsContext.Provider>
   );
 };
 

@@ -3,18 +3,17 @@ import { Collapse, CollapseProps, Flex, Input } from "antd";
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { TagContext } from "../context/tag";
-import { useTag } from "../hook/book";
 import SearchPanel from "./search_panel";
 
 const { Search } = Input;
 
 interface Props {
   pageSize: number;
+  tags: string[];
 }
 
-const SearchBar: React.FC<Props> = ({ pageSize }) => {
+const SearchBar: React.FC<Props> = ({ pageSize, tags }) => {
   const [activeKey, setActiveKey] = React.useState<string[]>([]);
-  const { data: tags } = useTag();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTag, setTag] = React.useState("");
 

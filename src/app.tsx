@@ -14,8 +14,7 @@ const App: React.FC = () => {
         headerBg: "white",
       },
       Select: {
-        optionSelectedColor: "white",
-        optionSelectedBg: "#141414",
+        optionSelectedBg: "#d9d9d9",
       },
       DatePicker: {
         cellActiveWithRangeBg: "rgba(0,0,0,0.1)"

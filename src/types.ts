@@ -96,6 +96,7 @@ export interface BookFormValue {
   stock: number;
   price: number;
   description: string;
+  tags: string[];
 }
 
 export enum Role {

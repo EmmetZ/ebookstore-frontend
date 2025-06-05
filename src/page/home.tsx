@@ -3,7 +3,7 @@ import React from "react";
 import { useSearchParams } from "react-router";
 import BookGrid from "../components/book_grid";
 import SearchBar from "../components/search_bar";
-import { useBooks } from "../hook/book";
+import { useBooks, useTag } from "../hook/book";
 
 const HomePage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,14 +21,15 @@ const HomePage: React.FC = () => {
     pageIndex,
     pageSize,
   );
+  const { data: tags } = useTag();
 
-  if (isPending || error) {
+  if (isPending || error || !tags) {
     return null;
   }
 
   return (
     <div>
-      <SearchBar pageSize={pageSize} />
+      <SearchBar pageSize={pageSize} tags={tags} />
       <BookGrid books={data.items} />
       <Pagination
         align="center"

@@ -1,10 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Col, Empty, Flex, Form, Input, InputNumber, Row } from "antd";
+import { Col, Empty, Flex, Form, Input, InputNumber, Row, Select } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import React, { Dispatch, useEffect, useState } from "react";
 import { useBookAddition, useBookEdit } from "../hook/book";
 import { BOOK_COVER_URL } from "../service/common";
 import { Book, BookFormValue, TmpCover } from "../types";
+import useTagsContext from "../context/tags";
 
 interface Props {
   form: any;
@@ -20,15 +21,19 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
   const [messageApi, contextHolder] = useMessage();
   const queryClient = useQueryClient();
   const [coverUrl, setCoverUrl] = useState<string | undefined>();
+  const { tags } = useTagsContext();
 
   const handleChange = (_: unknown, values: BookFormValue) => {
     let hasChanges: boolean;
     if (book) {
+      let bookTags = book.tags.map((tag) => tag.name);
       hasChanges =
         values.title !== book.title ||
         values.author !== book.author ||
         values.stock !== book.stock ||
         values.description !== book.description ||
+        values.tags.some((tag) => !bookTags.includes(tag)) ||
+        values.tags.length !== bookTags.length ||
         Math.round(values.price * 100) !== book.price;
     } else {
       hasChanges =
@@ -36,7 +41,8 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
         values.author !== "" &&
         values.stock >= 0 &&
         values.description !== "" &&
-        values.price > 0;
+        values.price > 0 &&
+        values.tags.length > 0;
     }
     setSave(hasChanges);
   };
@@ -50,6 +56,9 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
           setSave(false);
           messageApi.success(resp.message);
           queryClient.invalidateQueries({ queryKey: ["books"] });
+          queryClient.invalidateQueries({
+            queryKey: ["book", book.id.toString()],
+          });
         },
         onError: (error) => {
           messageApi.error(error.message);
@@ -169,6 +178,30 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
                 </Form.Item>
               </Col>
             </Row>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={24}>
+            <Form.Item
+              name="tags"
+              label="标签"
+              initialValue={
+                book
+                  ? book.tags.map((tag) => ({
+                      label: tag.name,
+                      value: tag.name,
+                    }))
+                  : []
+              }
+              rules={[{ required: true }]}
+            >
+              <Select
+                mode="multiple"
+                style={{ width: "100%" }}
+                placeholder="请选择或输入标签"
+                options={tags.map((tag) => ({ label: tag, value: tag }))}
+              />
+            </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
