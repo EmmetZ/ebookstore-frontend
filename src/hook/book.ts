@@ -3,6 +3,7 @@ import { post, put } from "../service/client";
 import {
   Book,
   BookAdditionFormValue as BookAddFormValue,
+  BookAdmin,
   BookFormValue,
   ListResponse,
   Response,
@@ -20,6 +21,24 @@ export const useBooks = (
   pageSize: number,
 ) => {
   return useData<ListResponse<Book>>(["books"], "/books", {
+    requestConfig: {
+      params: {
+        keyword,
+        tag,
+        pageIndex,
+        pageSize,
+      },
+    },
+  });
+};
+
+export const useAdminBooks = (
+  keyword: string,
+  tag: string,
+  pageIndex: number,
+  pageSize: number,
+) => {
+  return useData<ListResponse<BookAdmin>>(["admin_books"], "/admin/books", {
     requestConfig: {
       params: {
         keyword,
@@ -52,6 +71,16 @@ export const useBookAddition = () => {
     mutationFn: (body) => post<Response<null>>("/book", body),
     onError: (error) => {
       console.error("添加图书失败:", error);
+    },
+  });
+};
+
+export const useBookActive = () => {
+  return useMutation<Response<null>, Error, { id: number; active: boolean }>({
+    mutationFn: ({ id, active }) =>
+      put<Response<null>>(`/admin/book/${id}/status`, { isActive: active }),
+    onError: (error) => {
+      console.error("修改图书状态失败:", error);
     },
   });
 };

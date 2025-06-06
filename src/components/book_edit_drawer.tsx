@@ -13,13 +13,14 @@ import {
 import ImgCrop from "antd-img-crop";
 import useMessage from "antd/es/message/useMessage";
 import React, { Dispatch, useState } from "react";
+import { useBookActive } from "../hook/book";
 import { PREFIX } from "../service/common";
-import { Book, TmpCover } from "../types";
+import { BookAdmin, TmpCover } from "../types";
 import BookForm from "./book_form";
 
 interface Props {
   type: "edit" | "add";
-  book?: Book;
+  book?: BookAdmin;
   open: boolean;
   setOpen: Dispatch<boolean>;
 }
@@ -30,6 +31,7 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
   const [tmpCover, setTmpCover] = useState<TmpCover>();
+  const active = useBookActive();
 
   if (type === "edit" && !book) {
     return;
@@ -82,7 +84,23 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
     },
   };
 
-  const hadleDelete = () => {};
+  const handleStatusChange = (book: BookAdmin) => {
+    active.mutate(
+      { id: book.id, active: !book.isActive },
+      {
+        onSuccess: () => {
+          setOpen(false);
+          messageApi.success(
+            `图书《${book.title}》已成功${book.isActive ? "下架" : "上架"}`,
+          );
+          queryClient.invalidateQueries({ queryKey: ["admin_books"] });
+        },
+        onError: (error) => {
+          messageApi.error(`操作失败: ${error.message}`);
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -134,9 +152,16 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
         />
         {type === "edit" && (
           <Flex justify="end">
-            <Popconfirm title="确定执行此操作吗？" onConfirm={hadleDelete}>
-              <Button danger type="primary">
-                下架/删除图书
+            <Popconfirm
+              title="确定执行此操作吗？"
+              onConfirm={() => {
+                if (book) {
+                  handleStatusChange(book);
+                }
+              }}
+            >
+              <Button color={book?.isActive ? "red" : "green"} variant="solid">
+                {book?.isActive ? "下架图书" : "上架图书"}
               </Button>
             </Popconfirm>
           </Flex>

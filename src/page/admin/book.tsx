@@ -5,8 +5,8 @@ import { useSearchParams } from "react-router";
 import AdminBookItem from "../../components/admin_book_item";
 import BookEditDrawer from "../../components/book_edit_drawer";
 import SearchBar from "../../components/search_bar";
-import { useBooks, useTag } from "../../hook/book";
 import { TagsContext } from "../../context/tags";
+import { useAdminBooks, useTag } from "../../hook/book";
 
 const AdminPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +18,7 @@ const AdminPage: React.FC = () => {
       ? parseInt(searchParams.get("pageSize")!)
       : 10;
   const tag = searchParams.get("tag") || "";
-  const { data, isPending, error } = useBooks(
+  const { data, isPending, error } = useAdminBooks(
     keyword,
     tag,
     pageIndex,
@@ -64,11 +64,7 @@ const AdminPage: React.FC = () => {
           style={{ insetInlineEnd: 48 }}
         />
       </Tooltip>
-      <BookEditDrawer
-        type="add"
-        open={open}
-        setOpen={setOpenEdit}
-      />
+      <BookEditDrawer type="add" open={open} setOpen={setOpenEdit} />
     </TagsContext.Provider>
   );
 };

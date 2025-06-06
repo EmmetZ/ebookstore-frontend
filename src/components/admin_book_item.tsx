@@ -1,13 +1,13 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Col, Flex, List, Row, Space, Typography } from "antd";
+import { Button, Col, Flex, List, Row, Space, Tag, Typography } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { BOOK_COVER_URL } from "../service/common";
-import { Book } from "../types";
+import { BookAdmin } from "../types";
 import BookEditDrawer from "./book_edit_drawer";
 
 interface Props {
-  book: Book;
+  book: BookAdmin;
 }
 
 const AdminBookItem: React.FC<Props> = ({ book }) => {
@@ -18,6 +18,9 @@ const AdminBookItem: React.FC<Props> = ({ book }) => {
         <Row style={{ width: "100%" }} align="middle">
           <Col span={12}>
             <Flex align="center">
+              <Tag color={book.isActive ? "green" : "red"}>
+                {book.isActive ? "已上架" : "已下架"}
+              </Tag>
               <img
                 src={`${BOOK_COVER_URL}/${book.cover}`}
                 alt={book.title}

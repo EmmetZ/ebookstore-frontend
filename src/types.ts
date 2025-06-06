@@ -122,3 +122,7 @@ export interface TmpCover {
 export interface BookAdditionFormValue extends BookFormValue {
   coverId: number;
 }
+
+export interface BookAdmin extends Book {
+  isActive: boolean;
+}

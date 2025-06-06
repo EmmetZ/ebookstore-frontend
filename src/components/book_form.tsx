@@ -2,14 +2,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Col, Empty, Flex, Form, Input, InputNumber, Row, Select } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import React, { Dispatch, useEffect, useState } from "react";
+import useTagsContext from "../context/tags";
 import { useBookAddition, useBookEdit } from "../hook/book";
 import { BOOK_COVER_URL } from "../service/common";
-import { Book, BookFormValue, TmpCover } from "../types";
-import useTagsContext from "../context/tags";
+import { Book, BookAdmin, BookFormValue, TmpCover } from "../types";
 
 interface Props {
   form: any;
-  book?: Book;
+  book?: BookAdmin;
   cover?: TmpCover;
   setOpen: Dispatch<boolean>;
   setSave: Dispatch<boolean>;
@@ -55,7 +55,7 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
           setOpen(false);
           setSave(false);
           messageApi.success(resp.message);
-          queryClient.invalidateQueries({ queryKey: ["books"] });
+          queryClient.invalidateQueries({ queryKey: ["admin_books"] });
           queryClient.invalidateQueries({
             queryKey: ["book", book.id.toString()],
           });
@@ -78,7 +78,7 @@ const BookForm: React.FC<Props> = ({ form, book, cover, setOpen, setSave }) => {
           setOpen(false);
           setSave(false);
           messageApi.success(resp.message);
-          queryClient.invalidateQueries({ queryKey: ["books"] });
+          queryClient.invalidateQueries({ queryKey: ["admin_books"] });
         },
         onError: (error) => {
           messageApi.error(error.message);
