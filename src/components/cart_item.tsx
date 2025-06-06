@@ -16,6 +16,7 @@ import { Link } from "react-router";
 import useCartContext from "../context/cart";
 import { useDeleteCartItem, useModifyCartItem } from "../hook/cart";
 import { CartItem } from "../types";
+import { BOOK_COVER_URL } from "../service/common";
 
 interface Props {
   item: CartItem;
@@ -95,7 +96,7 @@ const CartListItem: React.FC<Props> = ({ item }) => {
               onClick={() => handleSelect(book.price)}
             />
             <img
-              src={book.cover}
+              src={`${BOOK_COVER_URL}/${book.cover}`}
               alt={book.title}
               style={{ width: "8em", marginLeft: "4em" }}
             />

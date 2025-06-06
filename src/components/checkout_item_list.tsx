@@ -2,6 +2,7 @@ import { Card, Col, Flex, List, Row, Space, Typography } from "antd";
 import React from "react";
 import { CartItem } from "../types";
 import { Link } from "react-router";
+import { BOOK_COVER_URL } from "../service/common";
 
 interface Props {
   items: CartItem[];
@@ -20,7 +21,7 @@ const CheckoutItemList: React.FC<Props> = ({ items, link = false }) => {
                 <Col span={19}>
                   <Space>
                     <img
-                      src={item.book.cover}
+                      src={`${BOOK_COVER_URL}/${item.book.cover}`}
                       alt={item.book.title}
                       style={{ width: "100px", marginRight: "20px" }}
                     />
