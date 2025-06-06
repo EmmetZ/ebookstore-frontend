@@ -1,15 +1,24 @@
 import React from "react";
-import { useOrders } from "../hook/order";
 import OrderList from "../components/order_list";
+import { Flex, Typography } from "antd";
 
 const OrderPage: React.FC = () => {
-  const { data, isPending, error } = useOrders();
-
-  if (isPending || error) {
-    return null;
-  }
-
-  return <OrderList orders={data} />;
+  return (
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "1360px",
+        margin: "0 auto",
+      }}
+    >
+      <Flex justify="space-between" align="center">
+        <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
+          我的订单
+        </Typography.Title>
+      </Flex>
+      <OrderList />
+    </div>
+  );
 };
 
 export default OrderPage;
