@@ -19,7 +19,7 @@ const CommentInput: React.FC<Props> = ({
   const handlePost = () => {
     post();
     setComment("");
-  }
+  };
   return (
     <>
       <TextArea
@@ -29,7 +29,11 @@ const CommentInput: React.FC<Props> = ({
         onChange={(e) => setComment(e.target.value)}
       />
       <Flex justify="end" style={{ marginTop: "12px" }}>
-        <Button type="primary" onClick={handlePost} disabled={comment.length === 0}>
+        <Button
+          type="primary"
+          onClick={handlePost}
+          disabled={comment.length === 0}
+        >
           发布
         </Button>
       </Flex>

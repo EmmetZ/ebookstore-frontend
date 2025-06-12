@@ -45,7 +45,7 @@ const CommentListItem: React.FC<Props> = ({ comment }) => {
             refresh();
           },
           onError: () => messageApi.error("回复失败"),
-        }
+        },
       );
     }
   };

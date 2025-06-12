@@ -61,8 +61,7 @@ export const useHandleAddress = () => {
         return handleAdd(body);
       }
     },
-    onSuccess: () => {
-    },
+    onSuccess: () => {},
     onError: async (_, __, context) => {
       queryClient.setQueryData<Address[]>(
         ["address"],

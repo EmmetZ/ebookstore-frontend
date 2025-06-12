@@ -64,7 +64,6 @@ export const useDeleteCartItem = (messageApi: MessageInstance) => {
     onError: (error) => {
       messageApi.error(`删除失败: ${error.message}`);
     },
-    onSettled: () => {
-    },
+    onSettled: () => {},
   });
 };

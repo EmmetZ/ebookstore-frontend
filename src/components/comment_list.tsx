@@ -42,7 +42,7 @@ const CommentList: React.FC<Props> = ({
             refresh();
           },
           onError: () => messageApi.error("评论失败"),
-        }
+        },
       );
     }
   };

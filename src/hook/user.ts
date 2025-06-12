@@ -7,7 +7,8 @@ import {
   OtherUser,
   RegisterBody,
   Response,
-  Role, User,
+  Role,
+  User,
 } from "../types";
 import handleResponse from "../utils/message";
 import { useData } from "./data";

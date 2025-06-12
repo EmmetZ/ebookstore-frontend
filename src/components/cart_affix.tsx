@@ -20,11 +20,11 @@ const CartAffix: React.FC<Props> = ({ num }) => {
 
   const handleCheckout = () => {
     const timestamp = new Date().getTime();
-    navigate(`/checkout/${timestamp}`, { 
-      state: { 
+    navigate(`/checkout/${timestamp}`, {
+      state: {
         selectedItems: selectedList,
-        totalAmount: sum 
-      }
+        totalAmount: sum,
+      },
     });
   };
 
@@ -45,9 +45,9 @@ const CartAffix: React.FC<Props> = ({ num }) => {
               ￥{(sum / 100).toFixed(2)}
             </span>
           </Typography.Text>
-          <Button 
-            type="primary" 
-            size="large" 
+          <Button
+            type="primary"
+            size="large"
             disabled={sum === 0 || selectedList.length === 0}
             onClick={handleCheckout}
           >

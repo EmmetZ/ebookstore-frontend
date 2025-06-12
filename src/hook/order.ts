@@ -26,7 +26,7 @@ export const useOrders = (
   page: number,
   pageSize: number,
   startDate?: string,
-  endDate?: string
+  endDate?: string,
 ) => {
   return useData<ListResponse<Order>>(["orders"], "/order", {
     requestConfig: {

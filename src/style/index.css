@@ -63,7 +63,7 @@
 }
 
 .price-info {
-  color: #999
+  color: #999;
 }
 
 .list-book-info {
@@ -74,5 +74,5 @@
 
 .hover-underline:hover {
   text-decoration: underline;
-  color: black
+  color: black;
 }

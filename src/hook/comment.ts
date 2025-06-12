@@ -1,6 +1,4 @@
-import {
-    useMutation
-} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { post, put } from "../service/client";
 import { Comment, ListResponse, Response } from "../types";
 import { useData } from "./data";

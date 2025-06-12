@@ -5,7 +5,7 @@ interface TCommentContext {
 }
 
 export const CommentContext = createContext<TCommentContext>(
-  {} as TCommentContext
+  {} as TCommentContext,
 );
 
 export default function useCommentContext() {
