@@ -8,7 +8,7 @@ import SearchBar from "../../components/search_bar";
 import { TagsContext } from "../../context/tags";
 import { useAdminBooks, useTag } from "../../hook/book";
 
-const AdminPage: React.FC = () => {
+const AdminBookPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const pageIndex =
@@ -69,4 +69,4 @@ const AdminPage: React.FC = () => {
   );
 };
 
-export default AdminPage;
+export default AdminBookPage;

@@ -141,7 +141,6 @@ const BookEditDrawer: React.FC<Props> = ({ type, book, open, setOpen }) => {
             </Button>
           </Space>
         }
-        destroyOnClose
       >
         <BookForm
           form={form}

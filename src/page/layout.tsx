@@ -118,7 +118,6 @@ export const AdminLayout: React.FC = () => {
         navigate("/");
         return;
       }
-      navigate("/admin/book");
     };
     check();
   }, [user]);

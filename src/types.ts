@@ -13,7 +13,7 @@ export interface User {
   username: string;
   nickname: string;
   balance: number;
-  avatar: string | null;
+  avatar: string;
   introduction: string | null;
   role: Role;
 }
@@ -125,4 +125,20 @@ export interface BookAdditionFormValue extends BookFormValue {
 
 export interface BookAdmin extends Book {
   isActive: boolean;
+}
+
+export interface AdminUser {
+  id: number;
+  username: string;
+  nickname: string;
+  avatar: string;
+  introduction: string | null;
+  role: Role;
+  isBanned: boolean;
+}
+
+export interface UserStatusBody {
+  id: number;
+  // is banned: boolean;
+  status: boolean;
 }
