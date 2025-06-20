@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { post } from "../service/client";
-import { Address, ListResponse, Order, Response } from "../types";
+import { Address, ListResponse, Order, Response, Role } from "../types";
 import { useData } from "./data";
 
 interface OrderRequest extends Address {
@@ -22,13 +22,16 @@ export const usePlaceOrder = () => {
 };
 
 export const useOrders = (
+  type: Role,
   keyword: string,
   page: number,
   pageSize: number,
   startDate?: string,
   endDate?: string,
 ) => {
-  return useData<ListResponse<Order>>(["orders"], "/order", {
+  const endpoint = type === Role.ADMIN ? "/order" : "/user/order";
+  const queryKey = type === Role.ADMIN ? ["orders"] : ["user", "orders"];
+  return useData<ListResponse<Order>>(queryKey, endpoint, {
     requestConfig: {
       params: {
         keyword,

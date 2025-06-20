@@ -4,7 +4,14 @@ import { useLocation, useNavigate } from "react-router";
 import { Role, User } from "../types";
 import NavbarAvatar from "./navbar_avatar";
 
-type Tab = "home" | "cart" | "order" | "admin/book" | "admin/user" | "";
+type Tab =
+  | "home"
+  | "cart"
+  | "order"
+  | "admin/book"
+  | "admin/user"
+  | "admin/order"
+  | "";
 
 interface NavBarProps {
   user: User;
@@ -35,6 +42,9 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
         break;
       case "/admin/user":
         setCurrent("admin/user");
+        break;
+      case "/admin/order":
+        setCurrent("admin/order");
         break;
       default:
         setCurrent("");
@@ -69,6 +79,11 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       key: "admin/user",
       label: "用户",
       onClick: () => navigate("/admin/user"),
+    },
+    {
+      key: "admin/order",
+      label: "订单",
+      onClick: () => navigate("/admin/order"),
     },
   ];
   return (

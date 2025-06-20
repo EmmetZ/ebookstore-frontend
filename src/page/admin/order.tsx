@@ -1,9 +1,8 @@
-import React from "react";
-import OrderList from "../components/order_list";
 import { Flex, Typography } from "antd";
-import { Role } from "../types";
+import OrderList from "../../components/order_list";
+import { Role } from "../../types";
 
-const OrderPage: React.FC = () => {
+const AdminOrderPage: React.FC = () => {
   return (
     <div
       style={{
@@ -14,12 +13,12 @@ const OrderPage: React.FC = () => {
     >
       <Flex justify="space-between" align="center">
         <Typography.Title level={3} style={{ margin: "0 0 20px 0" }}>
-          我的订单
+          订单
         </Typography.Title>
       </Flex>
-      <OrderList type={Role.USER} />
+      <OrderList type={Role.ADMIN} />
     </div>
   );
 };
 
-export default OrderPage;
+export default AdminOrderPage;

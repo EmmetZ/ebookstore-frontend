@@ -14,11 +14,16 @@ import React from "react";
 import { useSearchParams } from "react-router";
 import { useOrders } from "../hook/order";
 import OrderListItem from "./order_item";
+import { Role } from "../types";
 
 const { RangePicker } = DatePicker;
 const { Search } = Input;
 
-const OrderList: React.FC = () => {
+interface Props {
+  type: Role;
+}
+
+const OrderList: React.FC<Props> = ({ type }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const startDate = searchParams.get("start") || undefined;
@@ -34,7 +39,7 @@ const OrderList: React.FC = () => {
     data: orders,
     isPending,
     error,
-  } = useOrders(keyword, pageIndex, pageSize, startDate, endDate);
+  } = useOrders(type, keyword, pageIndex, pageSize, startDate, endDate);
 
   const handleDateChange: RangePickerProps["onChange"] = (dates) => {
     if (dates && dates.length === 2 && dates[0] && dates[1]) {

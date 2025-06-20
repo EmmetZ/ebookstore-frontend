@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import AdminBookPage from "./page/admin/book";
+import AdminOrderPage from "./page/admin/order";
 import AdminUserPage from "./page/admin/user";
 import BookPage from "./page/book";
 import CartPage from "./page/cart";
@@ -47,6 +48,7 @@ const Router: React.FC = () => {
             <Route index element={<Navigate to="/admin/book" replace />} />
             <Route path="book" element={<AdminBookPage />} />
             <Route path="user" element={<AdminUserPage />} />
+            <Route path="order" element={<AdminOrderPage />} />
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
