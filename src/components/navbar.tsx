@@ -11,6 +11,7 @@ type Tab =
   | "admin/book"
   | "admin/user"
   | "admin/order"
+  | "admin/statistics"
   | "";
 
 interface NavBarProps {
@@ -45,6 +46,9 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
         break;
       case "/admin/order":
         setCurrent("admin/order");
+        break;
+      case "/admin/statistics":
+        setCurrent("admin/statistics");
         break;
       default:
         setCurrent("");
@@ -84,6 +88,11 @@ const NavBar: React.FC<NavBarProps> = ({ user }) => {
       key: "admin/order",
       label: "订单",
       onClick: () => navigate("/admin/order"),
+    },
+    {
+      key: "admin/statistics",
+      label: "统计",
+      onClick: () => navigate("/admin/statistics"),
     },
   ];
   return (

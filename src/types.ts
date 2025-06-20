@@ -142,3 +142,8 @@ export interface UserStatusBody {
   // is banned: boolean;
   status: boolean;
 }
+
+export interface UserConsumption {
+  user: AdminUser;
+  consumption: number;
+}

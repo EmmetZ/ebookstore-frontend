@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import AdminBookPage from "./page/admin/book";
 import AdminOrderPage from "./page/admin/order";
+import AdminStatisticPage from "./page/admin/statistics";
 import AdminUserPage from "./page/admin/user";
 import BookPage from "./page/book";
 import CartPage from "./page/cart";
@@ -49,6 +50,7 @@ const Router: React.FC = () => {
             <Route path="book" element={<AdminBookPage />} />
             <Route path="user" element={<AdminUserPage />} />
             <Route path="order" element={<AdminOrderPage />} />
+            <Route path="statistics" element={<AdminStatisticPage />} />
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />

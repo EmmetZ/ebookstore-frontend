@@ -12,6 +12,7 @@ import {
   Response,
   Role,
   User,
+  UserConsumption,
   UserStatusBody,
 } from "../types";
 import handleResponse from "../utils/message";
@@ -112,5 +113,16 @@ export const useUsers = (pageIndex: number, pageSize: number, role: string) => {
 export const useBanUser = () => {
   return useMutation<Response<null>, Error, UserStatusBody>({
     mutationFn: (body) => post<Response<null>>("/user/status", body),
+  });
+};
+
+export const useUsersConsumption = (startDate?: string, endDate?: string) => {
+  return useData<UserConsumption[]>(["consumption"], "/users/data", {
+    requestConfig: {
+      params: {
+        start: startDate,
+        end: endDate,
+      },
+    },
   });
 };

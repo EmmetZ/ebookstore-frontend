@@ -84,3 +84,13 @@ export const useBookActive = () => {
     },
   });
 };
+
+export const useBookRank = (startDate?: string, endDate?: string) =>
+  useData<Book[]>(["rank"], "/books/rank", {
+    requestConfig: {
+      params: {
+        start: startDate,
+        end: endDate,
+      },
+    },
+  });
