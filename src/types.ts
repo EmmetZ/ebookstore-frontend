@@ -147,3 +147,14 @@ export interface UserConsumption {
   user: AdminUser;
   consumption: number;
 }
+
+export interface BookStatistic {
+  id: number;
+  author: string;
+  cover: string;
+  description: string;
+  price: number;
+  title: string;
+  number: number;
+  tags: Tag[];
+}

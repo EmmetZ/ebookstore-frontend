@@ -14,6 +14,7 @@ import NotFound from "./page/notfound";
 import OrderPage from "./page/order";
 import ProfilePage from "./page/profile";
 import RegisterPage from "./page/register";
+import StatisticPage from "./page/statistics";
 
 // const router = createBrowserRouter([
 //   {
@@ -41,6 +42,7 @@ const Router: React.FC = () => {
           <Route path="order" element={<OrderPage />} />
           <Route path="profile/:userId" element={<ProfilePage />} />
           <Route path="book/:bookId" element={<BookPage />} />
+          <Route path="order/statistics" element={<StatisticPage />} />
           <Route
             path="admin"
             element={<AdminLayout />}

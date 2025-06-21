@@ -1,6 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { post } from "../service/client";
-import { Address, ListResponse, Order, Response, Role } from "../types";
+import {
+  Address,
+  BookStatistic,
+  ListResponse,
+  Order,
+  Response,
+  Role,
+} from "../types";
 import { useData } from "./data";
 
 interface OrderRequest extends Address {
@@ -37,6 +44,17 @@ export const useOrders = (
         keyword,
         pageIndex: page,
         pageSize,
+        start: startDate,
+        end: endDate,
+      },
+    },
+  });
+};
+
+export const useStatistics = (startDate?: string, endDate?: string) => {
+  return useData<BookStatistic[]>(["statistics"], "/user/order/statistics", {
+    requestConfig: {
+      params: {
         start: startDate,
         end: endDate,
       },
