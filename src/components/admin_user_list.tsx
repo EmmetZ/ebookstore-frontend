@@ -10,7 +10,7 @@ import {
   Typography,
 } from "antd";
 import React from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useBanUser, useUsers } from "../hook/user";
 import { AdminUser, Role } from "../types";
 import UserAvatar from "./avatar";
@@ -95,9 +95,11 @@ const AdminUserList: React.FC<Props> = ({ role }) => {
                     direction="vertical"
                     style={{ marginLeft: "1em" }}
                   >
-                    <Typography.Text className="list-book-info hover-underline">
-                      {user.username}
-                    </Typography.Text>
+                    <Link to={`/profile/${user.id}`}>
+                      <Typography.Text className="list-book-info hover-underline">
+                        {user.username}
+                      </Typography.Text>
+                    </Link>
                     <Typography.Text style={{ color: "gray" }}>
                       {user.nickname}
                     </Typography.Text>
