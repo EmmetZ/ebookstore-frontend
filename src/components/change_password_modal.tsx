@@ -53,9 +53,6 @@ const ChangePasswordModal: React.FC = () => {
   };
 
   const onFinish = async (value: ChangePasswordFormValue) => {
-    if (value.password1 !== value.password2) {
-      messageApi.error("两次输入的密码不一致", 3);
-    }
     try {
       const result = await updatePassword({ password: value.password1 });
       handleResponse(result, messageApi);
@@ -80,9 +77,7 @@ const ChangePasswordModal: React.FC = () => {
         onCancel={closeModal}
         okText="提交"
         cancelText="取消"
-        destroyOnClose
         open={isModalOpen}
-        onClose={closeModal}
         okButtonProps={{ autoFocus: true, htmlType: "submit" }}
         footer={(_, { CancelBtn }) => {
           return (
@@ -167,6 +162,16 @@ const PasswordForm: React.FC<ChangePasswordFormProps> = ({
         label="请再次输入新密码"
         rules={[
           { required: true, message: "Please input your new password again!" },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password1") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error("两次输入的密码不一致，请重新输入！"),
+              );
+            },
+          }),
         ]}
       >
         <Input.Password visibilityToggle={false} />
