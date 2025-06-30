@@ -1,6 +1,15 @@
 import { Bar, PlotEvent } from "@ant-design/charts";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Empty, Flex, Typography } from "antd";
+import {
+  Button,
+  DatePicker,
+  Divider,
+  Empty,
+  Flex,
+  Space,
+  Statistic,
+  Typography,
+} from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
 import dayjs from "dayjs";
 import React from "react";
@@ -31,7 +40,7 @@ const StatisticPage: React.FC = () => {
           start: start,
           end: end,
         },
-        { replace: true },
+        { replace: true }
       );
     } else {
       setSearchParams({}, { replace: true });
@@ -67,31 +76,51 @@ const StatisticPage: React.FC = () => {
       {data.length === 0 ? (
         <Empty />
       ) : (
-        <Bar
-          title={{
-            title:
-              startDate && endDate
-                ? `${startDate} - ${endDate} 购买量统计`
-                : "全部购买量统计",
-            align: "center",
-          }}
-          data={data}
-          xField="title"
-          yField="number"
-          tooltip={{
-            items: [
-              {
-                name: "购买量",
-                channel: "y",
-              },
-            ],
-          }}
-          onReady={({ chart }) => {
-            chart.on("element:click", (e: PlotEvent) => {
-              navigate(`/book/${e.data.data.id}`);
-            });
-          }}
-        />
+        <>
+          <Bar
+            title={{
+              title:
+                startDate && endDate
+                  ? `${startDate} - ${endDate} 购买量统计`
+                  : "全部购买量统计",
+              align: "center",
+            }}
+            data={data}
+            xField="title"
+            yField="number"
+            tooltip={{
+              items: [
+                {
+                  name: "购买量",
+                  channel: "y",
+                },
+              ],
+            }}
+            onReady={({ chart }) => {
+              chart.on("element:click", (e: PlotEvent) => {
+                navigate(`/book/${e.data.data.id}`);
+              });
+            }}
+          />
+          <Space style={{ marginLeft: "20px" }}>
+            <Statistic
+              title="总购买量"
+              valueStyle={{ fontSize: "24px" }}
+              value={data.reduce((acc, item) => acc + item.number, 0)}
+              suffix="本"
+            />
+            <Divider type="vertical" style={{ padding: "10px" }} />
+            <Statistic
+              title="总销售额"
+              valueStyle={{ fontSize: "24px" }}
+              value={data.reduce(
+                (acc, item) => acc + (item.number * item.price) / 100,
+                0
+              )}
+              prefix="¥"
+            />
+          </Space>
+        </>
       )}
     </div>
   );

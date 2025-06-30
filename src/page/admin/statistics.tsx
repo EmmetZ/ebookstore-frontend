@@ -104,7 +104,6 @@ const UserRankBarPlot: React.FC<PlotProps> = ({ startDate, endDate }) => {
     username: item.user.username,
     consumption: item.consumption / 100,
   }));
-  console.log(formattedData);
 
   return (
     <Bar
